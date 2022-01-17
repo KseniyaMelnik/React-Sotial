@@ -1,0 +1,21 @@
+.message {
+    color: white;
+    display: flex;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.messageContent {
+    width: fit-content;
+    background-color: lightskyblue;
+    border-radius: 3px;
+    padding: 10px;
+    display: flex;
+}
+.message:nth-child(odd) {
+    justify-content: end;
+}
