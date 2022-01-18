@@ -2,17 +2,21 @@ import {PostPropsType} from "../components/Profile/MyPosts/Post/Post";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
+import {ProfilePropsType} from "../components/Profile/ProfileContainer";
 
-const addPost = 'ADD-POST';
+const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
 type profileReducerType = {
     posts: Array<PostPropsType>
     newPostText?: string
-    profile: any
+    profile: ProfilePropsType | null
     status: string
 }
+
+//type profileReducerType = typeof initialState;
+
 let initialState: profileReducerType = {
     posts: [
         {
@@ -35,7 +39,7 @@ let initialState: profileReducerType = {
 const profileReducer = (state = initialState, action: AppActionsType):profileReducerType => {
 
     switch (action.type) {
-        case addPost:
+        case ADD_POST:
             return {...state,
                 posts: [...state.posts, {
                     id: 5,
@@ -62,7 +66,7 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
     return state;
 }
 
-export const addPostActionCreator = (newPostBody: string) => ({type: addPost, newPostBody} as const)
+export const addPostActionCreator = (newPostBody: string) => ({type: ADD_POST, newPostBody} as const)
 export const setStatus = (status: string) => ({type: SET_STATUS, status } as const)
 export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile } as const)
 export const getUserProfile = (userID: string) => (dispatch: Dispatch) => {
