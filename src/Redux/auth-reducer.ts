@@ -35,7 +35,7 @@ const authReducer = (state = initialState, action: AppActionsType):authReducerTy
 export const setAuthUserData = (userId: string|null, email: string|null, login: string|null, isAuth: boolean) => ({type: SET_USER_DATE, payload: {userId: userId, email, login, isAuth} } as const)
 
 export const getAuthUserData = ():AppThunkType=>(dispatch)=> {
-    authAPI.me()
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, login, email } = response.data.data

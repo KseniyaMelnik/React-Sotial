@@ -12,6 +12,7 @@ import usersReducer, {
 import authReducer, {setAuthUserData} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import {reducer as formReducer} from "redux-form"
+import appReducer, {initializedSuccess} from "./app-reducer";
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -19,7 +20,8 @@ let rootReducer = combineReducers({
     sideBar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>
@@ -36,6 +38,7 @@ export type AppActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof toggleISFollowingProgress>
+    | ReturnType<typeof initializedSuccess>
 
 export type AppThunkType <ReturnType = void> = ThunkAction<void, AppStateType, unknown, AppActionsType>
 

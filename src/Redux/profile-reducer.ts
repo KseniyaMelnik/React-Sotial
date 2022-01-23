@@ -68,7 +68,7 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
 
 export const addPostActionCreator = (newPostBody: string) => ({type: ADD_POST, newPostBody} as const)
 export const setStatus = (status: string) => ({type: SET_STATUS, status } as const)
-export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile } as const)
+export const setUserProfile = (profile: ProfilePropsType) => ({type: SET_USER_PROFILE, profile } as const)
 export const getUserProfile = (userID: string) => (dispatch: Dispatch) => {
     profileAPI.getProfile(userID).then(response => {
         dispatch(setUserProfile(response.data))
