@@ -4,10 +4,6 @@ import {profileAPI} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
 import {ProfilePropsType} from "../components/Profile/ProfileContainer";
 
-const ADD_POST = 'ADD_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-
 export type profileReducerType = {
     posts: Array<PostPropsType>
     newPostText?: string
@@ -39,7 +35,7 @@ let initialState: profileReducerType = {
 const profileReducer = (state = initialState, action: AppActionsType):profileReducerType => {
 
     switch (action.type) {
-        case ADD_POST:
+        case 'SAMURAI-NETWORK/PROFILE/ADD_POST':
             return {...state,
                 posts: [...state.posts, {
                     id: 5,
@@ -51,17 +47,17 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
             }
 
 
-        case SET_USER_PROFILE: {
+        case 'SAMURAI-NETWORK/PROFILE/SET_USER_PROFILE': {
             return {...state,
                 profile: action.profile
             }
         }
-        case SET_STATUS: {
+        case 'SAMURAI-NETWORK/PROFILE/SET_STATUS': {
             return {...state,
                 status: action.status
             }
         }
-        case 'DELETE_POST': {
+        case 'SAMURAI-NETWORK/PROFILE/DELETE_POST': {
             return {...state,
                 posts: state.posts.filter(p=> p.id !== action.id)
             }
@@ -71,10 +67,10 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
     return state;
 }
 
-export const addPostActionCreator = (newPostBody: string) => ({type: ADD_POST, newPostBody} as const)
-export const setStatus = (status: string) => ({type: SET_STATUS, status } as const)
-export const setUserProfile = (profile: ProfilePropsType) => ({type: SET_USER_PROFILE, profile } as const)
-export const deletePost = (id: number)=> ({type: 'DELETE_POST', id} as const)
+export const addPostActionCreator = (newPostBody: string) => ({type: 'SAMURAI-NETWORK/PROFILE/ADD_POST', newPostBody} as const)
+export const setStatus = (status: string) => ({type: 'SAMURAI-NETWORK/PROFILE/SET_STATUS', status } as const)
+export const setUserProfile = (profile: ProfilePropsType) => ({type: 'SAMURAI-NETWORK/PROFILE/SET_USER_PROFILE', profile } as const)
+export const deletePost = (id: number)=> ({type: 'SAMURAI-NETWORK/PROFILE/DELETE_POST', id} as const)
 
 export const getUserProfile = (userID: string) => (dispatch: Dispatch) => {
     profileAPI.getProfile(userID).then(response => {

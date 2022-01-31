@@ -1,8 +1,6 @@
 import {AppActionsType, AppThunkType} from "./redux-store";
 import {getAuthUserData} from "./auth-reducer";
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
-
 let initialState = {
     initialized: false
 };
@@ -11,7 +9,7 @@ type appReducerStateType = typeof initialState
 const appReducer = (state = initialState, action: AppActionsType): appReducerStateType  => {
 
     switch (action.type) {
-        case INITIALIZED_SUCCESS:
+        case "SAMURAI-NETWORK/APP/INITIALIZED_SUCCESS":
             return {
                 ...state,
                 initialized: true
@@ -21,7 +19,7 @@ const appReducer = (state = initialState, action: AppActionsType): appReducerSta
     }
 }
 
-export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS} as const)
+export const initializedSuccess = () => ({type: "SAMURAI-NETWORK/APP/INITIALIZED_SUCCESS"} as const)
 
 export const initializeApp = (): AppThunkType => (dispatch) => {
     let promise = dispatch(getAuthUserData())

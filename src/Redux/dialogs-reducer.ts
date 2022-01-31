@@ -2,8 +2,6 @@ import {DialogItemPropsType} from "../components/Dialogs/DialogItem/DialogItem";
 import {MessagePropsType} from "../components/Dialogs/Message/Message";
 import {AppActionsType} from "./redux-store";
 
-const sendMessage = 'SEND-MESSAGE'
-
 export type DialogsReducerType = {
     dialogs: Array<DialogItemPropsType>,
     messages: Array<MessagePropsType>
@@ -69,7 +67,7 @@ const initialState: DialogsReducerType = {
 const dialogsReducer = (state = initialState, action: AppActionsType): DialogsReducerType => {
 
     switch (action.type) {
-        case sendMessage:
+        case 'SAMURAI-NETWORK/DIALOGS/SEND-MESSAGE':
             const body = action.newMessageBody;
             return {...state,
                 messages: [...state.messages, {
@@ -82,6 +80,6 @@ const dialogsReducer = (state = initialState, action: AppActionsType): DialogsRe
     return state;
 }
 
-export const sendMessageCreator = (newMessageBody: string)  => ({type: sendMessage, newMessageBody} as const)
+export const sendMessageCreator = (newMessageBody: string)  => ({type: 'SAMURAI-NETWORK/DIALOGS/SEND-MESSAGE', newMessageBody} as const)
 
 export default dialogsReducer
