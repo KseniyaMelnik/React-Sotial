@@ -11,7 +11,7 @@ export type PostsPropsType = {
     addPost: (newPostBody: string)=>void
 }
 
-const MyPosts: React.FC<PostsPropsType> = (props) => {
+const MyPosts: React.FC<PostsPropsType> = React.memo((props) => {
 
     const postsElement = props.posts.map((p: PostPropsType) => <Post message={p.message} likesCount={p.likesCount}
                                                                    image={p.image}/>)
@@ -33,7 +33,7 @@ const MyPosts: React.FC<PostsPropsType> = (props) => {
         </div>
 
     )
-}
+});
 export default MyPosts;
 
 const maxLength10 = maxLengthCreator(10);
