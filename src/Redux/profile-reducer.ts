@@ -8,7 +8,7 @@ const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
-type profileReducerType = {
+export type profileReducerType = {
     posts: Array<PostPropsType>
     newPostText?: string
     profile: ProfilePropsType | null
@@ -61,6 +61,11 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
                 status: action.status
             }
         }
+        case 'DELETE_POST': {
+            return {...state,
+                posts: state.posts.filter(p=> p.id !== action.id)
+            }
+        }
 
     }
     return state;
@@ -69,6 +74,8 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
 export const addPostActionCreator = (newPostBody: string) => ({type: ADD_POST, newPostBody} as const)
 export const setStatus = (status: string) => ({type: SET_STATUS, status } as const)
 export const setUserProfile = (profile: ProfilePropsType) => ({type: SET_USER_PROFILE, profile } as const)
+export const deletePost = (id: number)=> ({type: 'DELETE_POST', id} as const)
+
 export const getUserProfile = (userID: string) => (dispatch: Dispatch) => {
     profileAPI.getProfile(userID).then(response => {
         dispatch(setUserProfile(response.data))
