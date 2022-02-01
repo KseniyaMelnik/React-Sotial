@@ -12,24 +12,18 @@ export type UserType = {
     status: string,
 }
 
-type usersReducerType = {
-    users: Array<UserType>
-    pageSize: number,
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean,
-    followingInProgress: number[]
-}
-let initialState: usersReducerType = {
-    users: [],
+type UsersReducerType = typeof initialState
+
+let initialState = {
+    users: [] as [] | Array<UserType>,
     pageSize: 100,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [] as [] |  number[]
 };
 
-const usersReducer = (state = initialState, action: AppActionsType): usersReducerType => {
+const usersReducer = (state = initialState, action: AppActionsType): UsersReducerType => {
 
     switch (action.type) {
         case 'SAMURAI-NETWORK/USERS/FOLLOW':
