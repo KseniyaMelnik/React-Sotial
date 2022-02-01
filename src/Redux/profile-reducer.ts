@@ -4,16 +4,38 @@ import {profileAPI} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
 import {ProfilePropsType} from "../components/Profile/ProfileContainer";
 
-export type profileReducerType = {
-    posts: Array<PostPropsType>
-    newPostText?: string
-    profile: ProfilePropsType | null
-    status: string
+type PostType = {
+    id: number,
+    message: string,
+    likesCount: number,
+    image: string
 }
 
-//type profileReducerType = typeof initialState;
+ type ProfileType =  {
+    aboutMe: string;
+    contacts : {
+        facebook: string | null,
+        website: string | null,
+        vk: string | null,
+        twitter: string | null,
+        instagram: string | null,
+        youtube: string | null,
+        mainLink: string | null,
+        github: string | null,
+    },
+    fullName: string,
+    lookingForAJob: boolean,
+    photos: {
+        small: string,
+        large: string
+    }
+    userId: number
+    lookingForAJobDescription: string
+}
 
-let initialState: profileReducerType = {
+type profileReducerType = typeof initialState;
+
+let initialState = {
     posts: [
         {
             id: 1,
@@ -27,9 +49,10 @@ let initialState: profileReducerType = {
             likesCount: 20,
             image: 'https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg'
         }
-    ],
-    profile: null,
-    status: ""
+    ] as Array<PostType>,
+    profile: null as ProfileType | null,
+    status: "",
+    newPostText: ""
 };
 
 const profileReducer = (state = initialState, action: AppActionsType):profileReducerType => {
