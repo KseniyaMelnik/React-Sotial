@@ -1,11 +1,13 @@
-import {FriendPropsType} from "../components/Friends/Friend/Friend";
 import {AppActionsType} from "./redux-store";
 
-type SideBarReducerType = {
-    friends: Array<FriendPropsType>
-}
 
-const initialState:SideBarReducerType =  {
+type FriendType = {
+    id: number,
+    name: string,
+    avatar: string
+}
+type SideBarReducerType = typeof initialState
+const initialState =  {
     friends: [
         {
             id: 1,
@@ -22,7 +24,7 @@ const initialState:SideBarReducerType =  {
             name: 'Sasha',
             avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY9CFeq9b0Heyu5smWdzciVy8mSgdQptD0NQ&usqp=CAU'
         },
-    ]
+    ] as Array<FriendType>
 }
 
 const sidebarReducer = (state= initialState, action: AppActionsType):SideBarReducerType  => {

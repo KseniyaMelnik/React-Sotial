@@ -1,4 +1,3 @@
-import {PostPropsType} from "../components/Profile/MyPosts/Post/Post";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
@@ -68,7 +67,6 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
                 }],
                 newPostText:  ''
             }
-
 
         case 'SAMURAI-NETWORK/PROFILE/SET_USER_PROFILE': {
             return {...state,
