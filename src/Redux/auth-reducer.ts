@@ -3,20 +3,17 @@ import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {AppActionsType, AppThunkType} from "./redux-store";
 
-type authReducerType = {
-    userId: string|null,
-    email: string|null,
-    login: string|null,
-    isAuth: boolean,
-}
-let initialState: authReducerType = {
-    userId: null,
-    email: null,
-    login: null,
+
+export type AuthReducerType = typeof initialState;
+
+let initialState = {
+    userId: null as string|null,
+    email: null as string|null,
+    login: null as string|null,
     isAuth: false,
 };
 
-const authReducer = (state = initialState, action: AppActionsType):authReducerType  => {
+const authReducer = (state = initialState, action: AppActionsType):AuthReducerType  => {
 
     switch (action.type) {
         case 'SAMURAI-NETWORK/AUTH/SET_USER_DATE':
@@ -31,14 +28,14 @@ const authReducer = (state = initialState, action: AppActionsType):authReducerTy
 
 export const setAuthUserData = (userId: string|null, email: string|null, login: string|null, isAuth: boolean) => ({type: 'SAMURAI-NETWORK/AUTH/SET_USER_DATE', payload: {userId: userId, email, login, isAuth} } as const)
 
-export const getAuthUserData = ():AppThunkType=>(dispatch)=> {
-    return authAPI.me()
-        .then(response => {
+export const getAuthUserData = ():AppThunkType=> async (dispatch)=> {
+    let response = await authAPI.me()
+
             if (response.data.resultCode === 0) {
                 let {id, login, email } = response.data.data
                 dispatch(setAuthUserData(id, email, login, true));
             }
-        });
+
 }
 
 
