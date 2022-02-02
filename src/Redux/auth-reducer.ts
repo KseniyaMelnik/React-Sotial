@@ -28,38 +28,31 @@ const authReducer = (state = initialState, action: AppActionsType):AuthReducerTy
 
 export const setAuthUserData = (userId: string|null, email: string|null, login: string|null, isAuth: boolean) => ({type: 'SAMURAI-NETWORK/AUTH/SET_USER_DATE', payload: {userId: userId, email, login, isAuth} } as const)
 
-export const getAuthUserData = ():AppThunkType=> async (dispatch)=> {
+export const getAuthUserData = (): AppThunkType => async (dispatch) => {
     let response = await authAPI.me()
-
-            if (response.data.resultCode === 0) {
-                let {id, login, email } = response.data.data
-                dispatch(setAuthUserData(id, email, login, true));
-            }
-
+    if (response.data.resultCode === 0) {
+        let {id, login, email} = response.data.data
+        dispatch(setAuthUserData(id, email, login, true));
+    }
 }
 
 
-export const login = (email: string, password: string, rememberMe: boolean):AppThunkType=>(dispatch: Dispatch)=> {
-
-    authAPI.login(email,password,rememberMe)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                //@ts-ignore
-                 dispatch(getAuthUserData())
-            } else {
-                let message =  response.data.messages.length >0 ? response.data.messages[0] : "some error"
-                dispatch(stopSubmit("login", {_error: message}))
-            }
-        });
+export const login = (email: string, password: string, rememberMe: boolean): AppThunkType => async (dispatch: Dispatch) => {
+    let response = await authAPI.login(email, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        //@ts-ignore
+        dispatch(getAuthUserData())
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "some error"
+        dispatch(stopSubmit("login", {_error: message}))
+    }
 }
 
-export const logout = ():AppThunkType=>(dispatch)=> {
-    authAPI.logout()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false));
-            }
-        });
+export const logout = (): AppThunkType => async (dispatch) => {
+    let response = await authAPI.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false));
+    }
 }
 
 export default authReducer;

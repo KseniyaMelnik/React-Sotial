@@ -15,12 +15,12 @@ export type UserType = {
 type UsersReducerType = typeof initialState
 
 let initialState = {
-    users: [] as [] | Array<UserType>,
+    users: [] as Array<UserType>,
     pageSize: 100,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [] as [] |  number[]
+    followingInProgress: [] as number[]
 };
 
 const usersReducer = (state = initialState, action: AppActionsType): UsersReducerType => {
@@ -71,40 +71,35 @@ export const toggleIsFetching = (isFetching: boolean) => ({type: 'SAMURAI-NETWOR
 export const toggleISFollowingProgress = (isFetching: boolean, userId: number) => ({type: 'SAMURAI-NETWORK/USERS/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const)
 
 export const requestUsers = (page: number, pageSize: number):AppThunkType => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        usersAPI.getUsers(page, pageSize).then(data => {
+        let data = await usersAPI.getUsers(page, pageSize)
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
-        });
     }
 }
 
-export const follow = (userId: number):AppThunkType => {
-    return (dispatch) => {
-       dispatch(toggleISFollowingProgress(true, userId))
-        usersAPI.follow(userId)
-            .then(response => {
-                if (response.data.resultCode == 0){
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(toggleISFollowingProgress(false, userId))
-            });
+export const follow = (userId: number): AppThunkType => {
+    return async (dispatch) => {
+        dispatch(toggleISFollowingProgress(true, userId))
+        let response = await usersAPI.follow(userId)
+        if (response.data.resultCode == 0) {
+            dispatch(followSuccess(userId))
+        }
+        dispatch(toggleISFollowingProgress(false, userId))
     }
 }
 
-export const unfollow = (userId: number):AppThunkType => {
-    return (dispatch) => {
-        dispatch(toggleISFollowingProgress(true,userId))
-        usersAPI.unfollow(userId)
-            .then(response => {
-                if (response.data.resultCode == 0){
-                    dispatch(unfollowSuccess(userId));
-                }
-                dispatch(toggleISFollowingProgress(false, userId))
-            });
+export const unfollow = (userId: number): AppThunkType => {
+    return async (dispatch) => {
+        dispatch(toggleISFollowingProgress(true, userId))
+        let response = await usersAPI.unfollow(userId)
+        if (response.data.resultCode == 0) {
+            dispatch(unfollowSuccess(userId));
+        }
+        dispatch(toggleISFollowingProgress(false, userId))
     }
 }
 export default usersReducer;
