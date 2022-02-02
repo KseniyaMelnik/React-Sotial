@@ -27,7 +27,7 @@ type MapDispatchPropsType = {
 
 type AppPropsType = MapDispatchPropsType & MapStatePropsType
 
-class App extends React.Component<AppPropsType, any> {
+class App extends React.Component<AppPropsType> {
 
     componentDidMount() {
         this.props.initializeApp()

@@ -1,5 +1,6 @@
 import {usersAPI} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
+import {updateObjectArray} from "../utils/object-helpers";
 
 export type UserType = {
     id: number,
@@ -29,12 +30,12 @@ const usersReducer = (state = initialState, action: AppActionsType): UsersReduce
         case 'SAMURAI-NETWORK/USERS/FOLLOW':
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.userID ? {...u, followed: true} : u)
+                users: updateObjectArray(state.users, action.userID, 'id', {followed: true})
             }
         case 'SAMURAI-NETWORK/USERS/UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.userID ? {...u, followed: false} : u)
+                users: updateObjectArray(state.users, action.userID, 'id', {followed: false})
             }
         case 'SAMURAI-NETWORK/USERS/SET_USERS': {
             return { ...state, users: [...action.users]}
