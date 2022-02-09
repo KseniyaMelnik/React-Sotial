@@ -1,6 +1,6 @@
-import profileReducer, {addPostActionCreator, deletePost, profileReducerType} from "./profile-reducer";
+import profileReducer, {addPostActionCreator, deletePost} from "./profile-reducer";
 
-let initialState: profileReducerType = {
+let initialState: any = {
     posts: [
         {
             id: 1,

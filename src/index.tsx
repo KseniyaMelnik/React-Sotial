@@ -1,16 +1,13 @@
 import reportWebVitals from './reportWebVitals';
 
-import {store} from "./Redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import {BrowserRouter} from "react-router-dom";
+import  {SamuraiJSApp} from './App';
 import {DialogItemPropsType} from "./components/Dialogs/DialogItem/DialogItem";
 import {MessagePropsType} from "./components/Dialogs/Message/Message";
 import {PostPropsType} from "./components/Profile/MyPosts/Post/Post";
 import {FriendPropsType} from "./components/Friends/Friend/Friend";
-import {Provider} from "react-redux";
 
 export type statePropsType = {
     dialogsPage: {
@@ -29,11 +26,7 @@ export type statePropsType = {
 }
 
     ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-            <App />
-            </Provider>
-        </BrowserRouter>, document.getElementById('root')
+        <SamuraiJSApp />, document.getElementById('root')
     );
 
 
