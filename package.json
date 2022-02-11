@@ -26,11 +26,14 @@
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
+  "homepage": "https://kseniyamelnik.github.io/React-Sotial/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +55,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.1",
+    "gh-pages": "^3.2.3",
     "react-test-renderer": "^17.0.2"
   }
 }
