@@ -1,0 +1,38 @@
+{
+  "files": {
+    "static/js/0.46802f5b.chunk.js": "/React-Sotial/static/js/0.46802f5b.chunk.js",
+    "static/js/0.46802f5b.chunk.js.map": "/React-Sotial/static/js/0.46802f5b.chunk.js.map",
+    "main.css": "/React-Sotial/static/css/main.4701779d.chunk.css",
+    "main.js": "/React-Sotial/static/js/main.5080a8ac.chunk.js",
+    "main.js.map": "/React-Sotial/static/js/main.5080a8ac.chunk.js.map",
+    "runtime-main.js": "/React-Sotial/static/js/runtime-main.21963f01.js",
+    "runtime-main.js.map": "/React-Sotial/static/js/runtime-main.21963f01.js.map",
+    "static/js/3.3516859d.chunk.js": "/React-Sotial/static/js/3.3516859d.chunk.js",
+    "static/js/3.3516859d.chunk.js.map": "/React-Sotial/static/js/3.3516859d.chunk.js.map",
+    "static/css/4.61f934b8.chunk.css": "/React-Sotial/static/css/4.61f934b8.chunk.css",
+    "static/js/4.337bc634.chunk.js": "/React-Sotial/static/js/4.337bc634.chunk.js",
+    "static/js/4.337bc634.chunk.js.map": "/React-Sotial/static/js/4.337bc634.chunk.js.map",
+    "static/css/5.d3b07d33.chunk.css": "/React-Sotial/static/css/5.d3b07d33.chunk.css",
+    "static/js/5.0a63442f.chunk.js": "/React-Sotial/static/js/5.0a63442f.chunk.js",
+    "static/js/5.0a63442f.chunk.js.map": "/React-Sotial/static/js/5.0a63442f.chunk.js.map",
+    "static/css/6.008ce4ed.chunk.css": "/React-Sotial/static/css/6.008ce4ed.chunk.css",
+    "static/js/6.0b119e49.chunk.js": "/React-Sotial/static/js/6.0b119e49.chunk.js",
+    "static/js/6.0b119e49.chunk.js.map": "/React-Sotial/static/js/6.0b119e49.chunk.js.map",
+    "static/js/7.55f3a5db.chunk.js": "/React-Sotial/static/js/7.55f3a5db.chunk.js",
+    "static/js/7.55f3a5db.chunk.js.map": "/React-Sotial/static/js/7.55f3a5db.chunk.js.map",
+    "index.html": "/React-Sotial/index.html",
+    "static/css/4.61f934b8.chunk.css.map": "/React-Sotial/static/css/4.61f934b8.chunk.css.map",
+    "static/css/5.d3b07d33.chunk.css.map": "/React-Sotial/static/css/5.d3b07d33.chunk.css.map",
+    "static/css/6.008ce4ed.chunk.css.map": "/React-Sotial/static/css/6.008ce4ed.chunk.css.map",
+    "static/css/main.4701779d.chunk.css.map": "/React-Sotial/static/css/main.4701779d.chunk.css.map",
+    "static/js/0.46802f5b.chunk.js.LICENSE.txt": "/React-Sotial/static/js/0.46802f5b.chunk.js.LICENSE.txt",
+    "static/js/3.3516859d.chunk.js.LICENSE.txt": "/React-Sotial/static/js/3.3516859d.chunk.js.LICENSE.txt",
+    "static/media/preloader.d71f3ece.svg": "/React-Sotial/static/media/preloader.d71f3ece.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.21963f01.js",
+    "static/js/3.3516859d.chunk.js",
+    "static/css/main.4701779d.chunk.css",
+    "static/js/main.5080a8ac.chunk.js"
+  ]
+}
