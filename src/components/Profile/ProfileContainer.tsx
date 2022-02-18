@@ -50,13 +50,12 @@ type OwnPropsType = MapStatePropsType & MapDispatchPropsType
 type PropsType = RouteComponentProps<PathParamsType>& OwnPropsType
 
 type StateType = {
-    // описываем локальный стейт
     userId: string
 }
 
 class ProfileContainer extends React.Component<PropsType, StateType> {
 
-    componentDidMount() {
+    refreshProfile(){
         let userId: string = this.props.match.params.userId
         if (!userId) {
             //@ts-ignore
@@ -69,12 +68,23 @@ class ProfileContainer extends React.Component<PropsType, StateType> {
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+    componentDidUpdate(prevProps:PropsType ) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render() {
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
         )
     }
 }
+
+
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
