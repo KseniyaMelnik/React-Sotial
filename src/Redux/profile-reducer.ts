@@ -55,6 +55,10 @@ const profileReducer = (state = initialState, action: AppActionsType):profileRed
                 posts: state.posts.filter(p=> p.id !== action.id)
             }
         }
+        case "SAMURAI-NETWORK/PROFILE/SAVE_PHOTO": {
+            //@ts-ignore
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
 
     }
     return state;
@@ -64,6 +68,7 @@ export const addPostActionCreator = (newPostBody: string) => ({type: 'SAMURAI-NE
 export const setStatus = (status: string) => ({type: 'SAMURAI-NETWORK/PROFILE/SET_STATUS', status } as const)
 export const setUserProfile = (profile: ProfilePropsType) => ({type: 'SAMURAI-NETWORK/PROFILE/SET_USER_PROFILE', profile } as const)
 export const deletePost = (id: number)=> ({type: 'SAMURAI-NETWORK/PROFILE/DELETE_POST', id} as const)
+export const savePhotoSuccess = (photos: any) => ({type: 'SAMURAI-NETWORK/PROFILE/SAVE_PHOTO', photos} as const)
 
 export const getUserProfile = (userID: string) => async (dispatch: Dispatch) => {
     let response = await profileAPI.getProfile(userID)
@@ -79,6 +84,13 @@ export const updateStatus = (status: string):AppThunkType => async (dispatch) =>
             if (response.data.resultCode === 0) {
                 dispatch(setStatus(status))
             }
+}
+
+export const savePhoto = (file: any):AppThunkType => async (dispatch) => {
+    let response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.photos))
+    }
 }
 
 export default profileReducer;
