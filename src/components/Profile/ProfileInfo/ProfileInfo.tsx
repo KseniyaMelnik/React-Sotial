@@ -27,6 +27,16 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large || userPhoto}/>
                 {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                <ProfileData profile={props.profile} status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner} savePhoto={props.savePhoto}/>
+            </div>
+
+        </div>
+    )
+}
+
+const ProfileData = (props: ProfileInfoPropsType) => {
+    return (
+        <>
                 <ProfileStatusWidthHooks status={props.status} updateStatus={props.updateStatus}/>
                 <div><b>Full name: </b>{props.profile.fullName}</div>
                 <div>
@@ -38,19 +48,18 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                     }
                     <span>{props.profile.aboutMe}</span>
                     <div>
-                      <b>Contacts: </b> {Object.keys(props.profile.contacts).map((key)=> {
+                        <b>Contacts: </b> {Object.keys(props.profile.contacts).map((key)=> {
                         // @ts-ignore
                         return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]} />
                     })}
                     </div>
                 </div>
-            </div>
-        </div>
+            </>
     )
 }
 
 const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue}) => {
-    return <div><b>{contactTitle}: </b> {contactValue}</div>
+    return <div className={s.contact}><b>{contactTitle}: </b> {contactValue}</div>
 }
 type ContactPropsType = {
     contactTitle: string,
