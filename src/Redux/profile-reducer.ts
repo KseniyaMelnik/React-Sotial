@@ -93,10 +93,11 @@ export const savePhoto = (file: any):AppThunkType => async (dispatch) => {
     }
 }
 
-export const saveProfile = (profile: any):AppThunkType => async (dispatch) => {
+export const saveProfile = (profile: any):AppThunkType => async (dispatch, getState) => {
+    const userId = getState().auth.userId
     let response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
-        //dispatch(savePhotoSuccess(response.data.data.photos))
+        userId && dispatch(getUserProfile(userId))
     }
 }
 

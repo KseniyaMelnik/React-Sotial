@@ -28,7 +28,7 @@ type ProfileDataType =  {
 export const ProfileDataForm : React.FC<InjectedFormProps<ProfileDataType>> = (props)=> {
     return  <form onSubmit={props.handleSubmit}>
            <div> <button onClick={()=> {}}>Save</button></div>
-        <div> <b>About me</b> <Field name={"AboutMe"} component={Input}/></div>
+        <div> <b>About me</b> <Field name={"aboutMe"} component={Input}/></div>
         <div><b>Full name: </b> <Field name={"fullName"} component={Input}/></div>
         <div>
             <div>
