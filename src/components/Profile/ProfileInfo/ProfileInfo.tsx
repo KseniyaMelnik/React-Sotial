@@ -4,7 +4,7 @@ import {Preloader} from "../../common/preloader/Preloader";
 import {ProfilePropsType} from "../ProfileContainer";
 import {ProfileStatusWidthHooks} from "./ProfileStatusWidthHooks";
 import userPhoto from "../../../Assets/Images/avatar.png"
-import {ProfileDataForm} from "./ProfileDataForm";
+import {ProfileDataForm, ProfileDataReduxForm} from "./ProfileDataForm";
 
 type ProfileInfoPropsType = {
     profile: ProfilePropsType
@@ -12,6 +12,7 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: any
+    saveProfile: any
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -26,7 +27,8 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         }
     }
     const onSubmit = (formData: any) => {
-        console.log(formData)
+        //console.log(formData)
+        props.saveProfile(formData)
     }
     return (
         <div>
@@ -34,7 +36,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <img src={props.profile.photos.large || userPhoto}/>
                 {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
                 {editMode
-                    ? <ProfileDataForm onSubmit={onSubmit} profile={props.profile}/>
+                    ? <ProfileDataReduxForm onSubmit={onSubmit} />
                     : <ProfileData profile={props.profile} status={props.status} updateStatus={props.updateStatus}
                                    isOwner={props.isOwner}
                                    goToEditMode={()=>{setEditMode(true)}}
