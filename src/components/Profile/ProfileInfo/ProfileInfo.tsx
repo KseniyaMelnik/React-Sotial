@@ -36,7 +36,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <img src={props.profile.photos.large || userPhoto}/>
                 {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
                 {editMode
-                    ? <ProfileDataReduxForm initialValues ={props.profile} onSubmit={onSubmit} />
+                    ? <ProfileDataReduxForm initialValues ={props.profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={props.profile} status={props.status} updateStatus={props.updateStatus}
                                    isOwner={props.isOwner}
                                    goToEditMode={()=>{setEditMode(true)}}
@@ -81,7 +81,7 @@ const ProfileData = (props: ProfileDataPropsType) => {
     )
 }
 
-const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue}) => {
+export const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue}) => {
     return <div className={s.contact}><b>{contactTitle}: </b> {contactValue}</div>
 }
 type ContactPropsType = {

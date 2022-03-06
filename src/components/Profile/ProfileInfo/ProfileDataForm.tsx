@@ -26,6 +26,7 @@ type ProfileDataType =  {
 }
 
 export const ProfileDataForm : React.FC<InjectedFormProps<ProfileDataType>> = (props)=> {
+
     return  <form onSubmit={props.handleSubmit}>
            <div> <button onClick={()=> {}}>Save</button></div>
         <div> <b>About me</b> <Field name={"aboutMe"} component={Input}/></div>
@@ -36,12 +37,16 @@ export const ProfileDataForm : React.FC<InjectedFormProps<ProfileDataType>> = (p
             </div>
             <div><b> My professional skills </b> <Field type="text" name={"lookingForAJobDescription"} component={Input}/></div>
 
-            {/*<div>
-                <b>Contacts: </b> {Object.keys(props.profile.contacts).map((key) => {
+            <div>
+
+                <b>Contacts: </b> {
                 // @ts-ignore
-                return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]}/>
+                Object.keys(props.initialValues.contacts).map((key) => {
+                return <div>
+                    <b>{key}</b> <Field name={`contacts.${key}`} component={Input}/>
+                </div>
             })}
-            </div>*/}
+            </div>
         </div>
     </form>
 }
