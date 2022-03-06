@@ -3,6 +3,7 @@ import {profileAPI} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
 import {ProfilePropsType} from "../components/Profile/ProfileContainer";
 import {PostType, ProfileType} from "../types/types";
+import {stopSubmit} from "redux-form";
 
 type profileReducerType = typeof initialState;
 
@@ -98,6 +99,9 @@ export const saveProfile = (profile: any):AppThunkType => async (dispatch, getSt
     let response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
         userId && dispatch(getUserProfile(userId))
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "some error"
+        dispatch(stopSubmit("profileData", {_error: message}))
     }
 }
 

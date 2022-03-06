@@ -1,6 +1,7 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../common/formControls/FormControls";
+import s from "../../common/formControls/FormControls.module.css";
 
 
 type ProfileDataType =  {
@@ -29,6 +30,9 @@ export const ProfileDataForm : React.FC<InjectedFormProps<ProfileDataType>> = (p
 
     return  <form onSubmit={props.handleSubmit}>
            <div> <button onClick={()=> {}}>Save</button></div>
+        { props.error && <div className={s.formSummaryError}>
+            {props.error}
+        </div> }
         <div> <b>About me</b> <Field name={"aboutMe"} component={Input}/></div>
         <div><b>Full name: </b> <Field name={"fullName"} component={Input}/></div>
         <div>
