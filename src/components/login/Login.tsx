@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field,InjectedFormProps, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/formControls/FormControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
@@ -12,9 +12,10 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType> & {captchaUrl: string | null}> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -35,7 +36,10 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type="checkbox" name={"remember me"} component={Input}/> remember me
             </div>
-            { props.error && <div className={s.formSummaryError}>
+            {props.captchaUrl && <img src={props.captchaUrl}/>}
+            {props.captchaUrl && <Field name={"captcha"} component={Input} validate={[required]}/>}
+
+            {props.error && <div className={s.formSummaryError}>
                 {props.error}
             </div>}
             <div>
@@ -45,32 +49,38 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     )
 }
 
+// @ts-ignore
 const LoginReduxForm = reduxForm<FormDataType>({
     form: "login"
-}) (LoginForm)
+    // @ts-ignore
+})(LoginForm)
 
 const Login = (props: any) => {
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
-    
+
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>
     } else {
         return <div>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            { // @ts-ignore
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>}
         </div>
     }
 
 }
 
 type MapStatePropsType = {
+    captchaUrl: string | null,
     isAuth: boolean
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-    isAuth: state.auth.isAuth
-}}
+        captchaUrl: state.auth.captchaUrl,
+        isAuth: state.auth.isAuth
+    }
+}
 export default connect(mapStateToProps, {login})(Login);
