@@ -102,6 +102,7 @@ export const saveProfile = (profile: any):AppThunkType => async (dispatch, getSt
     } else {
         let message = response.data.messages.length > 0 ? response.data.messages[0] : "some error"
         dispatch(stopSubmit("profileData", {_error: message}))
+        return Promise.reject(message);
     }
 }
 

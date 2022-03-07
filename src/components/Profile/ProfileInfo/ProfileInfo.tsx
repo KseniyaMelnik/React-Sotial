@@ -27,8 +27,11 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         }
     }
     const onSubmit = (formData: any) => {
-        props.saveProfile(formData)
-       // setEditMode(false)
+        props.saveProfile(formData).then(
+            ()=> {
+                setEditMode(false)
+            }
+        )
     }
     return (
         <div>
@@ -36,10 +39,12 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <img src={props.profile.photos.large || userPhoto}/>
                 {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
                 {editMode
-                    ? <ProfileDataReduxForm initialValues ={props.profile} onSubmit={onSubmit}/>
+                    ? <ProfileDataReduxForm initialValues={props.profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={props.profile} status={props.status} updateStatus={props.updateStatus}
                                    isOwner={props.isOwner}
-                                   goToEditMode={()=>{setEditMode(true)}}
+                                   goToEditMode={() => {
+                                       setEditMode(true)
+                                   }}
                     />}
             </div>
 
@@ -48,9 +53,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
 }
 
 type ProfileDataPropsType = {
-    goToEditMode: ()=> void
+    goToEditMode: () => void
     status: string
-    updateStatus: (status: string)=> void
+    updateStatus: (status: string) => void
     isOwner: boolean
     profile: ProfilePropsType
 }
