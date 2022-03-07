@@ -13,7 +13,7 @@ export type PostsPropsType = {
 
 const MyPosts: React.FC<PostsPropsType> = React.memo((props) => {
 
-    const postsElement = props.posts.map((p: PostPropsType) => <Post message={p.message} likesCount={p.likesCount}
+    const postsElement = props.posts.map((p: PostPropsType) => <Post key={p.id} message={p.message} likesCount={p.likesCount}
                                                                    image={p.image}/>)
 
     const addNewPost = (values: any) => {

@@ -46,7 +46,7 @@ export const ProfileDataForm : React.FC<InjectedFormProps<ProfileDataType>> = (p
                 <b>Contacts: </b> {
                 // @ts-ignore
                 Object.keys(props.initialValues.contacts).map((key) => {
-                return <div>
+                return <div key={key}>
                     <b>{key}</b> <Field name={`contacts.${key}`} component={Input}/>
                 </div>
             })}
