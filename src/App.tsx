@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {HashRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -42,16 +42,19 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
+                    <Switch>
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
                     <Route path={'/friends'} render={() => <Friends/>}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
                     <Suspense fallback={<Preloader />}>
+                        <Route path='/' exact><Redirect to='/profile'/></Route>
                         <Route path={'/login'} render={() => <Login/>}/>
                         <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                         <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     </Suspense>
+                    </Switch>
                 </div>
             </div>
         );
