@@ -81,9 +81,14 @@ export const getStatus = (userID: string):AppThunkType => async (dispatch) => {
  }
 
 export const updateStatus = (status: string):AppThunkType => async (dispatch) => {
-    let response = await profileAPI.updateStatus(status)
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
+
+            try {
+                let response = await profileAPI.updateStatus(status)
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatus(status))
+                }
+            } catch (error) {
+              console.error(error)
             }
 }
 
