@@ -2,7 +2,8 @@ import {AppActionsType, AppThunkType} from "./redux-store";
 import {getAuthUserData} from "./auth-reducer";
 
 let initialState = {
-    initialized: false
+    initialized: false,
+    globalError: null as string | null
 };
 type appReducerStateType = typeof initialState
 
