@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import {Layout, Menu, Breadcrumb, Avatar, Row, Col} from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import {HashRouter, NavLink, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {AppStateType, AppThunkType, store} from "./Redux/redux-store";
@@ -17,10 +17,10 @@ import UsersContainer from "./components/Users/UsersContainer";
 import Login from "./components/login/Login";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import s from "./components/Navbar/Navbar.module.css";
+import Header from "./components/Header/Header";
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 
 type MapStatePropsType = {
@@ -75,14 +75,7 @@ class App extends React.Component<AppPropsType> {
             </div>*/
 
             <Layout>
-                <Header className="header">
-                    <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                        <Menu.Item key="1">nav 1</Menu.Item>
-                        <Menu.Item key="2">nav 2</Menu.Item>
-                        <Menu.Item key="3">nav 3</Menu.Item>
-                    </Menu>
-                </Header>
+                <Header />
                 <Layout>
                     <Sider width={200} className="site-layout-background">
                         <Menu
@@ -95,7 +88,7 @@ class App extends React.Component<AppPropsType> {
                                 <Menu.Item key="2"> <NavLink to="/dialogs">Dialogs</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub2" icon={<LaptopOutlined />} title="Developers">
-                                <Menu.Item key="5"><NavLink to="/users">Users</NavLink></Menu.Item>
+                                <Menu.Item key="5"><NavLink to="/developers">Developers</NavLink></Menu.Item>
                                 <Menu.Item key="6">option6</Menu.Item>
                                 <Menu.Item key="7">option7</Menu.Item>
                                 <Menu.Item key="8">option8</Menu.Item>
@@ -127,7 +120,7 @@ class App extends React.Component<AppPropsType> {
                                 <Route path={'/music'} component={Music}/>
                                 <Route path={'/settings'} component={Settings}/>
                                 <Route path={'/friends'} render={() => <Friends/>}/>
-                                <Route path={'/users'} render={() => <UsersContainer/>}/>
+                                <Route path={'/developers'} render={() => <UsersContainer/>}/>
                                 <Suspense fallback={<Preloader />}>
                                     <Route path='/' exact><Redirect to='/profile'/></Route>
                                     <Route path={'/login'} render={() => <Login/>}/>
