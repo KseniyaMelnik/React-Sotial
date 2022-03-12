@@ -49,12 +49,22 @@ const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
 }
 
 const AddMessageForm: React.FC = () => {
+    const [message, setMessage] = useState('')
+
+    const sendMessage = () => {
+        if (!message) {
+            return
+        }
+        ws.send(message)
+        setMessage('')
+    }
     return <div>
     <TextArea rows={4}
-              maxLength={4}
               placeholder="enter your message"
+              value={message}
+              onChange={(e)=> setMessage(e.currentTarget.value)}
     />
-        <Button>Send</Button>
+        <Button onClick={sendMessage}>Send</Button>
     </div>
 }
 export default ChatPage
