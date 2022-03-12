@@ -4,7 +4,7 @@ import { Input } from 'antd';
 
 const { TextArea } = Input;
 
-const ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
+const wsChanel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
 
 export type ChatMessageType = {
     message: string
@@ -29,7 +29,7 @@ const Chat: React.FC = () => {
 const Messages: React.FC = () => {
     const [messages, setMessages] = useState<ChatMessageType[]>([])
     useEffect(()=>{
-        ws.addEventListener('message', (e)=> {
+        wsChanel.addEventListener('message', (e)=> {
             let newMessages = JSON.parse(e.data)
             setMessages((prevMessages)=> [...prevMessages, ...newMessages])
         })
@@ -55,7 +55,7 @@ const AddMessageForm: React.FC = () => {
         if (!message) {
             return
         }
-        ws.send(message)
+        wsChanel.send(message)
         setMessage('')
     }
     return <div>
