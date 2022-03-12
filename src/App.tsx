@@ -15,12 +15,16 @@ import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
 import UsersContainer from "./components/Users/UsersContainer";
 import Login from "./components/login/Login";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Header from "./components/Header/Header";
+
+const ProfileContainer  = React.lazy(()=> import ('./components/Profile/ProfileContainer'))
+const DialogsContainer  = React.lazy(()=> import ('./components/Dialogs/DialogsContainer'))
+const ChatPage  = React.lazy(()=> import ('./pages/Chat/ChatPage'))
+
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
+
 
 
 type MapStatePropsType = {
@@ -89,15 +93,9 @@ class App extends React.Component<AppPropsType> {
                             </SubMenu>
                             <SubMenu key="sub2" icon={<LaptopOutlined />} title="Developers">
                                 <Menu.Item key="5"><NavLink to="/developers">Developers</NavLink></Menu.Item>
-                                <Menu.Item key="6">option6</Menu.Item>
-                                <Menu.Item key="7">option7</Menu.Item>
-                                <Menu.Item key="8">option8</Menu.Item>
                             </SubMenu>
-                            <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                                <Menu.Item key="9">option9</Menu.Item>
-                                <Menu.Item key="10">option10</Menu.Item>
-                                <Menu.Item key="11">option11</Menu.Item>
-                                <Menu.Item key="12">option12</Menu.Item>
+                            <SubMenu key="sub3" icon={<NotificationOutlined />} title="Chat">
+                                <Menu.Item key="9"><NavLink to="/chat">Chat</NavLink></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
@@ -124,6 +122,7 @@ class App extends React.Component<AppPropsType> {
                                 <Suspense fallback={<Preloader />}>
                                     <Route path='/' exact><Redirect to='/profile'/></Route>
                                     <Route path={'/login'} render={() => <Login/>}/>
+                                    <Route path={'/chat'} render={() => <ChatPage/>}/>
                                     <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                                 </Suspense>
