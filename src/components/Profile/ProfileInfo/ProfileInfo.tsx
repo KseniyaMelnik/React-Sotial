@@ -4,7 +4,9 @@ import {Preloader} from "../../common/preloader/Preloader";
 import {ProfilePropsType} from "../ProfileContainer";
 import {ProfileStatusWidthHooks} from "./ProfileStatusWidthHooks";
 import userPhoto from "../../../Assets/Images/avatar.png"
-import {ProfileDataForm, ProfileDataReduxForm} from "./ProfileDataForm";
+import {ProfileDataReduxForm} from "./ProfileDataForm";
+import {Button, Input} from "antd";
+import {EditOutlined} from "@ant-design/icons";
 
 type ProfileInfoPropsType = {
     profile: ProfilePropsType
@@ -37,7 +39,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large || userPhoto}/>
-                {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                {props.isOwner && <Input type={"file"} onChange={onMainPhotoSelected} style={{ width: 250 }}/>}
                 {editMode
                     ? <ProfileDataReduxForm initialValues={props.profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={props.profile} status={props.status} updateStatus={props.updateStatus}
@@ -64,7 +66,7 @@ const ProfileData = (props: ProfileDataPropsType) => {
         <>
             <ProfileStatusWidthHooks status={props.status} updateStatus={props.updateStatus}/>
             {props.isOwner && <div>
-                <button onClick={props.goToEditMode}>Edit</button>
+                <Button onClick={props.goToEditMode}>Edit</Button>
             </div>}
             <div><b>Full name: </b>{props.profile.fullName}</div>
             <div>
