@@ -43,7 +43,6 @@ const Chat: React.FC = () => {
     },[])
 
 
-
      return <div>
          <Messages wsChannel={wsChannel}/>
          <AddMessageForm wsChannel={wsChannel}/>
@@ -53,7 +52,7 @@ const Chat: React.FC = () => {
 const Messages: React.FC<{wsChannel:WebSocket|null}> = ({wsChannel}) => {
     const [messages, setMessages] = useState<ChatMessageType[]>([])
     useEffect(()=>{
-        const messageHandler = (e:any)=> {
+        const messageHandler = (e:MessageEvent)=> {
             let newMessages = JSON.parse(e.data)
             setMessages((prevMessages)=> [...prevMessages, ...newMessages])
         }
