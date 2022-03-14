@@ -1,17 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Button, Image} from "antd";
 import { Input } from 'antd';
+import {ChatMessageType} from "../../api/chat-api";
 
 const { TextArea } = Input;
 
 
-export type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
 
-}
  const ChatPage: React.FC = () => {
     return <div>
         <Chat />
