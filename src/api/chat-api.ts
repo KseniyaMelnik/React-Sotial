@@ -13,6 +13,14 @@ function createChannel() {
     ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
     ws.addEventListener('close', closeHandler)
 }
+
+const messageHandler = (e:MessageEvent)=> {
+    let newMessages = JSON.parse(e.data)
+    subscribers.forEach(s=>s(newMessages))
+}
+
+
+
 export const chatAPI = {
     subscribe(callback: SubscriberType){
         subscribers.push(callback)
