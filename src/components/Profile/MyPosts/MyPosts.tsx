@@ -4,6 +4,7 @@ import Post, {PostPropsType} from "./Post/Post";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/formControls/FormControls";
+import {Button} from "antd";
 
 
 export type PostsPropsType = {
@@ -44,7 +45,7 @@ const PostForm: React.FC<InjectedFormProps> = (props)=> {
                    placeholder={"Enter your message"}
                    validate={[required, maxLength10]}
             />
-            <button>Add post</button>
+            <Button>Add post</Button>
     </form>
 }
 

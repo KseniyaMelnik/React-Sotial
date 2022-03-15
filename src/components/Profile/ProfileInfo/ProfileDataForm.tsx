@@ -2,6 +2,7 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../common/formControls/FormControls";
 import s from "../../common/formControls/FormControls.module.css";
+import {Button} from "antd";
 
 
 type ProfileDataType =  {
