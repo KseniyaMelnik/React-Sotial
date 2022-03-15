@@ -17,10 +17,8 @@ type UsersPropsType = {
 
 const Users = (props: UsersPropsType) => {
     return <div>
-        <Paginator currentPage={props.currentPage}
-                   onPageChanged={props.onPageChanged}
+        <Paginator onPageChanged={props.onPageChanged}
                    totalCount={props.totalUsersCount}
-                   pageSize={props.pageSize}
         />
         <div>
             {
