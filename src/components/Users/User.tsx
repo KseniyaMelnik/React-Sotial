@@ -3,6 +3,7 @@ import {UserType} from "../../Redux/users-reducer";
 import s from "./Users.module.css"
 import userPhoto from "../../Assets/Images/avatar.png"
 import {NavLink} from "react-router-dom";
+import {Button} from "antd";
 
 type UserPropsType = {
     user: UserType,
@@ -23,12 +24,12 @@ const User = (props: UserPropsType) => {
                     </div>
                     <div>
                         {user.followed
-                            ? <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                            ? <Button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
                                 props.unfollow(user.id)
-                            }}>UNFOLLOW</button>
-                            : <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                            }}>UNFOLLOW</Button>
+                            : <Button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
                                 props.follow(user.id)
-                            }}>FOLLOW</button>}
+                            }}>FOLLOW</Button>}
                     </div>
                 </span>
                 <span>
