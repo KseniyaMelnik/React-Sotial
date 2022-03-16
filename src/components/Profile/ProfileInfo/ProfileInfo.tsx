@@ -80,15 +80,14 @@ const ProfileData = (props: ProfileDataPropsType) => {
                     }
                     <span>{props.profile.aboutMe}</span>
                 </Panel>
+
+                <Panel header="Contacts" key="2">
+                    {Object.keys(props.profile.contacts).map((key) => {
+                        // @ts-ignore
+                        return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]}/>
+                    })}
+                </Panel>
             </Collapse>
-            <div>
-                <div>
-                    <b>Contacts: </b> {Object.keys(props.profile.contacts).map((key) => {
-                    // @ts-ignore
-                    return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]}/>
-                })}
-                </div>
-            </div>
         </>
     )
 }
