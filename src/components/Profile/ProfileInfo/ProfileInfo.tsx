@@ -5,8 +5,9 @@ import {ProfilePropsType} from "../ProfileContainer";
 import {ProfileStatusWidthHooks} from "./ProfileStatusWidthHooks";
 import userPhoto from "../../../Assets/Images/avatar.png"
 import {ProfileDataReduxForm} from "./ProfileDataForm";
-import {Button, Input} from "antd";
-import {EditOutlined} from "@ant-design/icons";
+import {Button, Collapse, Input} from "antd";
+
+const { Panel } = Collapse;
 
 type ProfileInfoPropsType = {
     profile: ProfilePropsType
@@ -69,14 +70,18 @@ const ProfileData = (props: ProfileDataPropsType) => {
                 <Button onClick={props.goToEditMode}>Edit</Button>
             </div>}
             <div><b>Full name: </b>{props.profile.fullName}</div>
+            <Collapse accordion style={{width: 300}}>
+                <Panel header="About me" key="1">
+                    <div>
+                        <b>Looking for a job</b> : {props.profile.lookingForAJob ? "yes" : "no"}
+                    </div>
+                    {props.profile.lookingForAJob &&
+                    <div><b> My professional skills </b>{props.profile.lookingForAJobDescription}</div>
+                    }
+                    <span>{props.profile.aboutMe}</span>
+                </Panel>
+            </Collapse>
             <div>
-                <div>
-                    <b>Looking for a job</b> : {props.profile.lookingForAJob ? "yes" : "no"}
-                </div>
-                {props.profile.lookingForAJob &&
-                <div><b> My professional skills </b>{props.profile.lookingForAJobDescription}</div>
-                }
-                <span>{props.profile.aboutMe}</span>
                 <div>
                     <b>Contacts: </b> {Object.keys(props.profile.contacts).map((key) => {
                     // @ts-ignore
