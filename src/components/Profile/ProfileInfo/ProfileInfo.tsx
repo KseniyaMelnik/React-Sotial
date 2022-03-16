@@ -70,7 +70,7 @@ const ProfileData = (props: ProfileDataPropsType) => {
             {props.isOwner && <div>
                 <Button onClick={props.goToEditMode}>Edit</Button>
             </div>}
-            <Collapse accordion style={{width: 300}}>
+            <Collapse style={{width: 300}}>
                 <Panel header="About me" key="1">
                     <div>
                         <b>Looking for a job</b> : {props.profile.lookingForAJob ? "yes" : "no"}
