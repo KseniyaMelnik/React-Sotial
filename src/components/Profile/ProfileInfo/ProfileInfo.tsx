@@ -39,6 +39,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     return (
         <div>
             <div className={s.descriptionBlock}>
+                <h2>{props.profile.fullName}</h2>
                 <img src={props.profile.photos.large || userPhoto}/>
                 {props.isOwner && <Input type={"file"} onChange={onMainPhotoSelected} style={{ width: 250 }}/>}
                 {editMode
@@ -69,7 +70,6 @@ const ProfileData = (props: ProfileDataPropsType) => {
             {props.isOwner && <div>
                 <Button onClick={props.goToEditMode}>Edit</Button>
             </div>}
-            <div><b>Full name: </b>{props.profile.fullName}</div>
             <Collapse accordion style={{width: 300}}>
                 <Panel header="About me" key="1">
                     <div>
