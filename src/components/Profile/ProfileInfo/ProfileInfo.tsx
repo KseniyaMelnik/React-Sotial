@@ -6,6 +6,7 @@ import {ProfileStatusWidthHooks} from "./ProfileStatusWidthHooks";
 import userPhoto from "../../../Assets/Images/avatar.png"
 import {ProfileDataReduxForm} from "./ProfileDataForm";
 import {Button, Collapse, Input} from "antd";
+import Title from "antd/lib/typography/Title";
 
 const { Panel } = Collapse;
 
@@ -39,7 +40,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     return (
         <div>
             <div className={s.descriptionBlock}>
-                <h2>{props.profile.fullName}</h2>
+                <Title level={2}>{props.profile.fullName}</Title>
                 <img src={props.profile.photos.large || userPhoto}/>
                 {props.isOwner && <Input type={"file"} onChange={onMainPhotoSelected} style={{ width: 250 }}/>}
                 {editMode
