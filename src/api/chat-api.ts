@@ -5,23 +5,32 @@ let ws: WebSocket | null = null
 const closeHandler = () => {
     setTimeout(createChannel, 3000)
 }
-function createChannel() {
-    if(ws){
-        ws.removeEventListener('close', closeHandler)
-        ws.close()
-    }
-    ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
-    ws.addEventListener('close', closeHandler)
-}
-
 const messageHandler = (e:MessageEvent)=> {
     let newMessages = JSON.parse(e.data)
     subscribers.forEach(s=>s(newMessages))
 }
+const cleanUp = () => {
+    ws?.removeEventListener('close', closeHandler)
+    ws?.removeEventListener('message', messageHandler)
+}
 
-
+function createChannel() {
+    cleanUp()
+    ws?.close()
+    ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
+    ws.addEventListener('close', closeHandler)
+    ws.addEventListener('message', messageHandler)
+}
 
 export const chatAPI = {
+    start(){
+        createChannel()
+    },
+    stop(){
+        subscribers=[]
+        cleanUp()
+        ws?.close()
+    },
     subscribe(callback: SubscriberType){
         subscribers.push(callback)
         return ()=>{
