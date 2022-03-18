@@ -73,7 +73,7 @@ const AddMessageForm: React.FC<{}> = () => {
               onChange={(e)=> setMessage(e.currentTarget.value)}
               style={{width: 400}}
     />
-        <Button onClick={sendMessageHandler} disabled={status==='pending'}>Send</Button>
+        <Button onClick={sendMessageHandler} disabled={status !=='ready'}>Send</Button>
     </div>
 }
 export default ChatPage

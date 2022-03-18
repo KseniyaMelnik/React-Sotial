@@ -9,23 +9,39 @@ let ws: WebSocket | null = null
 type EventsNameType = "messages-received" | "status-changed"
 
 const closeHandler = () => {
+    notifySubscribersAboutStatus('pending')
     setTimeout(createChannel, 3000)
 }
 const messageHandler = (e:MessageEvent)=> {
     let newMessages = JSON.parse(e.data)
     subscribers["messages-received"].forEach(s=>s(newMessages))
 }
+const openHandler = ()=> {
+    notifySubscribersAboutStatus('ready')
+}
+const errorHandler = ()=> {
+    notifySubscribersAboutStatus('error')
+}
 const cleanUp = () => {
     ws?.removeEventListener('close', closeHandler)
     ws?.removeEventListener('message', messageHandler)
+    ws?.removeEventListener('open', openHandler)
+    ws?.removeEventListener('error', errorHandler)
+}
+
+const notifySubscribersAboutStatus = (status: StatusType) => {
+    subscribers["status-changed"].forEach(s=>s(status))
 }
 
 function createChannel() {
     cleanUp()
     ws?.close()
     ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
+    notifySubscribersAboutStatus('ready')
     ws.addEventListener('close', closeHandler)
     ws.addEventListener('message', messageHandler)
+    ws.addEventListener('open', openHandler)
+    ws.addEventListener('error', errorHandler)
 }
 
 export const chatAPI = {
@@ -38,7 +54,7 @@ export const chatAPI = {
         cleanUp()
         ws?.close()
     },
-    subscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType){
+    subscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType | null){
         // @ts-ignore
         subscribers[eventName].push(callback)
         return ()=>{
@@ -46,7 +62,7 @@ export const chatAPI = {
             subscribers[eventName] = subscribers[eventName].filter(s=> s !== callback)
         }
     },
-    unsubscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType) {
+    unsubscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType | null) {
         // @ts-ignore
         subscribers[eventName] = subscribers[eventName].filter(s=> s !== callback)
     },

@@ -7,7 +7,7 @@ import {chatAPI, ChatMessageType} from "../api/chat-api";
 
 export type ChatReducerType = typeof initialState;
 
-export type StatusType = 'pending'| 'ready'
+export type StatusType = 'pending'| 'ready' | 'error'
 
 let initialState = {
     messages: [] as ChatMessageType[],
@@ -59,12 +59,12 @@ const statusChangedHandler = (dispatch: Dispatch) => {
 export const startMessagesListening = (): AppThunkType => async (dispatch) => {
     chatAPI.start()
     chatAPI.subscribe("messages-received", newMessageHandlerCreator(dispatch))
-    chatAPI.subscribe("status-changed", newMessageHandlerCreator(dispatch))
+    chatAPI.subscribe("status-changed", statusChangedHandler(dispatch))
 
 }
 export const stopMessagesListening = (): AppThunkType => async (dispatch) => {
     chatAPI.unsubscribe("messages-received", newMessageHandlerCreator(dispatch))
-    chatAPI.unsubscribe("status-changed", newMessageHandlerCreator(dispatch))
+    chatAPI.unsubscribe("status-changed", statusChangedHandler(dispatch))
     chatAPI.stop()
 }
 export const sendMessage = (message: string): AppThunkType => async (dispatch) => {
