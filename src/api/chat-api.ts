@@ -1,13 +1,19 @@
-let subscribers = [] as Array<SubscriberType>
+import {StatusType} from "../Redux/chat-reducer";
+
+const subscribers = {
+    "messages-received": [] as Array<MessagesReceivedSubscriberType>,
+    "status-changed": [] as Array<StatusChangedSubscriberType>
+}
 
 let ws: WebSocket | null = null
+type EventsNameType = "messages-received" | "status-changed"
 
 const closeHandler = () => {
     setTimeout(createChannel, 3000)
 }
 const messageHandler = (e:MessageEvent)=> {
     let newMessages = JSON.parse(e.data)
-    subscribers.forEach(s=>s(newMessages))
+    subscribers["messages-received"].forEach(s=>s(newMessages))
 }
 const cleanUp = () => {
     ws?.removeEventListener('close', closeHandler)
@@ -27,26 +33,31 @@ export const chatAPI = {
         createChannel()
     },
     stop(){
-        subscribers=[]
+        subscribers["messages-received"]=[]
+        subscribers["status-changed"]=[]
         cleanUp()
         ws?.close()
     },
-    subscribe(callback: SubscriberType){
-        subscribers.push(callback)
+    subscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType){
+        // @ts-ignore
+        subscribers[eventName].push(callback)
         return ()=>{
-            subscribers = subscribers.filter(s=> s !== callback)
+            // @ts-ignore
+            subscribers[eventName] = subscribers[eventName].filter(s=> s !== callback)
         }
     },
-    unsubscribe(callback: SubscriberType) {
-        subscribers = subscribers.filter(s=> s !== callback)
+    unsubscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType) {
+        // @ts-ignore
+        subscribers[eventName] = subscribers[eventName].filter(s=> s !== callback)
     },
+
     sendMessage(message: string){
         ws?.send(message)
     }
 }
 
-type SubscriberType = (messages: ChatMessageType[])=> void
-
+type MessagesReceivedSubscriberType = (messages: ChatMessageType[])=> void
+type StatusChangedSubscriberType = (status: StatusType) => void
 export type ChatMessageType = {
     message: string
     photo: string

@@ -3,7 +3,12 @@ import {Button, Image} from "antd";
 import { Input } from 'antd';
 import {ChatMessageType} from "../../api/chat-api";
 import {useDispatch, useSelector} from "react-redux";
-import {sendMessage, startMessagesListening, stopMessagesListening} from "../../Redux/chat-reducer";
+import {
+    sendMessage,
+    startMessagesListening,
+    StatusType,
+    stopMessagesListening
+} from "../../Redux/chat-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 
 const { TextArea } = Input;
@@ -51,7 +56,7 @@ const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
 
 const AddMessageForm: React.FC<{}> = () => {
     const [message, setMessage] = useState('')
-    const [ReadyStatus, setReadyStatus] = useState<'pending'|'ready'>('pending')
+    const status = useSelector<AppStateType, StatusType>(state=> state.chat.status)
     const dispatch = useDispatch()
 
     const sendMessageHandler = () => {
@@ -59,6 +64,7 @@ const AddMessageForm: React.FC<{}> = () => {
             return
         }
      dispatch(sendMessage(message))
+        setMessage('')
     }
     return <div>
     <TextArea rows={2}
@@ -67,7 +73,7 @@ const AddMessageForm: React.FC<{}> = () => {
               onChange={(e)=> setMessage(e.currentTarget.value)}
               style={{width: 400}}
     />
-        <Button onClick={sendMessageHandler} disabled={false}>Send</Button>
+        <Button onClick={sendMessageHandler} disabled={status==='pending'}>Send</Button>
     </div>
 }
 export default ChatPage

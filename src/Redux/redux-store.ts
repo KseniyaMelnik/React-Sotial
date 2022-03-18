@@ -19,7 +19,7 @@ import authReducer, {getCaptchaUrlSuccess, setAuthUserData} from "./auth-reducer
 import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import {reducer as formReducer} from "redux-form"
 import appReducer, {initializedSuccess} from "./app-reducer";
-import chatReducer, {messagesReceived} from "./chat-reducer";
+import chatReducer, {messagesReceived, statusChanged} from "./chat-reducer";
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -51,6 +51,7 @@ export type AppActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof savePhotoSuccess>
     | ReturnType<typeof getCaptchaUrlSuccess>
     | ReturnType<typeof messagesReceived>
+    | ReturnType<typeof statusChanged>
 
 export type AppThunkType <ReturnType = void> = ThunkAction<void, AppStateType, unknown, AppActionsType>
 
