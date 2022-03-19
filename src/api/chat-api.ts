@@ -37,7 +37,7 @@ function createChannel() {
     cleanUp()
     ws?.close()
     ws = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
-    notifySubscribersAboutStatus('ready')
+    notifySubscribersAboutStatus('pending')
     ws.addEventListener('close', closeHandler)
     ws.addEventListener('message', messageHandler)
     ws.addEventListener('open', openHandler)

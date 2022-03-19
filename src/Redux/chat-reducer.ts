@@ -47,7 +47,7 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
     return _newMessageHandler
 }
 let _statusChangedHandler: ((status: StatusType)=> void) | null = null
-const statusChangedHandler = (dispatch: Dispatch) => {
+const statusChangedHandlerCreator = (dispatch: Dispatch) => {
     if (_statusChangedHandler === null) {
         _statusChangedHandler = (status: StatusType) => {
             dispatch(statusChanged(status))
@@ -59,12 +59,12 @@ const statusChangedHandler = (dispatch: Dispatch) => {
 export const startMessagesListening = (): AppThunkType => async (dispatch) => {
     chatAPI.start()
     chatAPI.subscribe("messages-received", newMessageHandlerCreator(dispatch))
-    chatAPI.subscribe("status-changed", statusChangedHandler(dispatch))
+    chatAPI.subscribe("status-changed", statusChangedHandlerCreator(dispatch))
 
 }
 export const stopMessagesListening = (): AppThunkType => async (dispatch) => {
     chatAPI.unsubscribe("messages-received", newMessageHandlerCreator(dispatch))
-    chatAPI.unsubscribe("status-changed", statusChangedHandler(dispatch))
+    chatAPI.unsubscribe("status-changed", statusChangedHandlerCreator(dispatch))
     chatAPI.stop()
 }
 export const sendMessage = (message: string): AppThunkType => async (dispatch) => {
