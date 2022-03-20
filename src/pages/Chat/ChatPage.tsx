@@ -66,14 +66,15 @@ const Messages: React.FC= () => {
         <div ref={messagesAnchorRef}></div>
     </div>
 }
-const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
+const Message: React.FC<{message: ChatMessageType}> = React.memo(({message}) => {
+
      return <div>
          <Image  width={30} src={message.photo} /> <b>{message.userName}</b>
          <br/>
          {message.message}
          <hr />
      </div>
-}
+})
 
 const AddMessageForm: React.FC<{}> = () => {
     const [message, setMessage] = useState('')
