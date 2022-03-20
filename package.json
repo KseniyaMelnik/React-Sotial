@@ -14,6 +14,7 @@
     "@types/react-redux": "^7.1.20",
     "@types/react-test-renderer": "^17.0.1",
     "@types/redux-form": "^8.3.3",
+    "@types/uuid": "^8.3.4",
     "antd": "^4.19.1",
     "axios": "^0.24.0",
     "react": "^17.0.2",
@@ -26,6 +27,7 @@
     "redux-thunk": "^2.4.1",
     "reselect": "^4.1.5",
     "typescript": "^4.1.2",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
   "homepage": "https://kseniyamelnik.github.io/React-Sotial/",

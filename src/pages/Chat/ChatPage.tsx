@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button, Image} from "antd";
 import { Input } from 'antd';
-import {ChatMessageType} from "../../api/chat-api";
+
 import {useDispatch, useSelector} from "react-redux";
 import {
+    ChatMessageType,
     sendMessage,
     startMessagesListening,
     StatusType,
@@ -15,7 +16,7 @@ const { TextArea } = Input;
 
 
  const ChatPage: React.FC = () => {
-    return <div>
+     return <div>
         <Chat />
     </div>
 }
@@ -28,7 +29,6 @@ const Chat: React.FC = () => {
         dispatch(startMessagesListening());
         return () => {
             dispatch(stopMessagesListening());
-
         }
     }, [])
 
@@ -62,7 +62,7 @@ const Messages: React.FC= () => {
     }, [messages])
 
     return <div style={{height: '400px', overflow: 'auto'}} onScroll={scrollHandler}>
-        {messages.map((m: ChatMessageType, index)=> <Message key={index} message={m}/>)}
+        {messages.map((m: ChatMessageType)=> <Message key={m.id} message={m}/>)}
         <div ref={messagesAnchorRef}></div>
     </div>
 }

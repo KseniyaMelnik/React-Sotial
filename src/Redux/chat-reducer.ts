@@ -1,13 +1,13 @@
 import {Dispatch} from "redux";
-import {authAPI, securityAPI} from "../api/api";
-import {stopSubmit} from "redux-form";
 import {AppActionsType, AppThunkType} from "./redux-store";
-import {chatAPI, ChatMessageType} from "../api/chat-api";
-
+import {chatAPI, ChatMessageApiType} from "../api/chat-api";
+import {v1} from "uuid"
 
 export type ChatReducerType = typeof initialState;
 
 export type StatusType = 'pending'| 'ready' | 'error'
+
+export type ChatMessageType = ChatMessageApiType & {id: string}
 
 let initialState = {
     messages: [] as ChatMessageType[],
@@ -20,7 +20,7 @@ const chatReducer = (state = initialState, action: AppActionsType):ChatReducerTy
         case 'SAMURAI-NETWORK/CHAT/MESSAGES-RECEIVED':
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload]
+                messages: [...state.messages, ...action.payload.map(m=>({...m, id: v1()}))].filter((m ,index, array)=> index >= (array.length - 100))
             }
             case 'SAMURAI-NETWORK/CHAT/STATUS-CHANGED':
                 return {
@@ -32,14 +32,14 @@ const chatReducer = (state = initialState, action: AppActionsType):ChatReducerTy
     }
 }
 
-export const messagesReceived = (messages: ChatMessageType[]) => ({type: 'SAMURAI-NETWORK/CHAT/MESSAGES-RECEIVED', payload: messages}  as const)
+export const messagesReceived = (messages: ChatMessageApiType[]) => ({type: 'SAMURAI-NETWORK/CHAT/MESSAGES-RECEIVED', payload: messages}  as const)
 export const statusChanged = (status: StatusType) => ({type: 'SAMURAI-NETWORK/CHAT/STATUS-CHANGED', payload: status}  as const)
 
 
-let _newMessageHandler: ((messages: ChatMessageType[])=> void) | null = null
+let _newMessageHandler: ((messages: ChatMessageApiType[])=> void) | null = null
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
     if (_newMessageHandler === null) {
-        _newMessageHandler = (messages: ChatMessageType[]) => {
+        _newMessageHandler = (messages: ChatMessageApiType[]) => {
             dispatch(messagesReceived(messages))
         }
 
