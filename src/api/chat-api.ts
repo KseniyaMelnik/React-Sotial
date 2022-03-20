@@ -54,7 +54,7 @@ export const chatAPI = {
         cleanUp()
         ws?.close()
     },
-    subscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType | null){
+    subscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType){
         // @ts-ignore
         subscribers[eventName].push(callback)
         return ()=>{
@@ -62,7 +62,7 @@ export const chatAPI = {
             subscribers[eventName] = subscribers[eventName].filter(s=> s !== callback)
         }
     },
-    unsubscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType | null) {
+    unsubscribe(eventName: EventsNameType, callback: MessagesReceivedSubscriberType|StatusChangedSubscriberType) {
         // @ts-ignore
         subscribers[eventName] = subscribers[eventName].filter(s=> s !== callback)
     },

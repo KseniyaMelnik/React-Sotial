@@ -10,7 +10,6 @@ import {
     stopMessagesListening
 } from "../../Redux/chat-reducer";
 import {AppStateType} from "../../Redux/redux-store";
-
 const { TextArea } = Input;
 
 
@@ -22,7 +21,7 @@ const { TextArea } = Input;
 }
 
 const Chat: React.FC = () => {
-
+    const status = useSelector<AppStateType, StatusType>(state=> state.chat.status)
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(startMessagesListening());
@@ -34,8 +33,12 @@ const Chat: React.FC = () => {
 
 
      return <div>
-         <Messages />
-         <AddMessageForm />
+         {status === 'error' ? <div>Some error occurred. Please refresh the page</div>
+           : <>
+                 <Messages/>
+                 <AddMessageForm />
+             </>
+         }
      </div>
 }
 
@@ -73,7 +76,7 @@ const AddMessageForm: React.FC<{}> = () => {
               onChange={(e)=> setMessage(e.currentTarget.value)}
               style={{width: 400}}
     />
-        <Button onClick={sendMessageHandler} disabled={status !=='ready'}>Send</Button>
+        <Button onClick={sendMessageHandler} disabled={status !== 'ready'}>Send</Button>
     </div>
 }
 export default ChatPage
