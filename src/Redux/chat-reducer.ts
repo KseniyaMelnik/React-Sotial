@@ -53,7 +53,7 @@ const statusChangedHandlerCreator = (dispatch: Dispatch) => {
             dispatch(statusChanged(status))
         }
     }
-    return _newMessageHandler
+    return _statusChangedHandler
 }
 
 export const startMessagesListening = (): AppThunkType => async (dispatch) => {
