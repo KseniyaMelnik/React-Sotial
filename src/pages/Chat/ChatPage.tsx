@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button, Image} from "antd";
-import { Input } from 'antd';
+import { Alert, Input } from 'antd';
 
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -25,6 +25,10 @@ const Chat: React.FC = () => {
     const status = useSelector<AppStateType, StatusType>(state=> state.chat.status)
     const dispatch = useDispatch()
 
+    const onClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        console.log(e, 'I was closed.');
+    };
+
     useEffect(()=>{
         dispatch(startMessagesListening());
         return () => {
@@ -33,7 +37,13 @@ const Chat: React.FC = () => {
     }, [])
 
     return <div>
-        {status === 'error' && <div>Some error occurred. Please refresh the page</div>}
+        {status === 'error' && <Alert
+            message="Some error occurred. Please refresh the page"
+            description="Error Description Error Description Error Description Error Description Error Description Error Description"
+            type="error"
+            closable
+            onClose={onClose}
+        />}
         <>
             <Messages/>
             <AddMessageForm/>
