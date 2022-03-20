@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, Image} from "antd";
 import { Input } from 'antd';
 import {ChatMessageType} from "../../api/chat-api";
@@ -23,6 +23,7 @@ const { TextArea } = Input;
 const Chat: React.FC = () => {
     const status = useSelector<AppStateType, StatusType>(state=> state.chat.status)
     const dispatch = useDispatch()
+
     useEffect(()=>{
         dispatch(startMessagesListening());
         return () => {
@@ -31,21 +32,26 @@ const Chat: React.FC = () => {
         }
     }, [])
 
+    return <div>
+        {status === 'error' && <div>Some error occurred. Please refresh the page</div>}
+        <>
+            <Messages/>
+            <AddMessageForm/>
+        </>
 
-     return <div>
-         {status === 'error' ? <div>Some error occurred. Please refresh the page</div>
-           : <>
-                 <Messages/>
-                 <AddMessageForm />
-             </>
-         }
-     </div>
+    </div>
 }
 
 const Messages: React.FC= () => {
-     const messages = useSelector<AppStateType, ChatMessageType[]>(state=> state.chat.messages)
+    const messages = useSelector<AppStateType, ChatMessageType[]>(state=> state.chat.messages)
+    const messagesAnchorRef = useRef<HTMLDivElement>(null);
+    useEffect(()=> {
+        messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'})
+    }, [messages])
+
     return <div style={{height: '400px', overflow: 'auto'}}>
         {messages.map((m: ChatMessageType, index)=> <Message key={index} message={m}/>)}
+        <div ref={messagesAnchorRef}></div>
     </div>
 }
 const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
