@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState, KeyboardEvent} from "react";
 import {Button, Image} from "antd";
 import { Alert, Input } from 'antd';
 
@@ -98,12 +98,18 @@ const AddMessageForm: React.FC<{}> = () => {
      dispatch(sendMessage(message))
         setMessage('')
     }
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter") {
+            sendMessageHandler()
+        }
+    }
     return <div>
     <TextArea rows={2}
               placeholder="enter your message"
               value={message}
               onChange={(e)=> setMessage(e.currentTarget.value)}
               style={{width: 400}}
+              onKeyPress={onKeyPressHandler}
     />
         <Button onClick={sendMessageHandler} disabled={status !== 'ready'}>Send</Button>
     </div>
