@@ -1,4 +1,7 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import { Typography } from 'antd';
+const { Paragraph } = Typography;
+
 
 type ProfileStatusProps = {
     status: string
@@ -7,35 +10,17 @@ type ProfileStatusProps = {
 
 export const ProfileStatusWidthHooks  = (props: ProfileStatusProps) => {
 
-    const [editMode, setEditMode] = useState<boolean>(false)
     const [status, setStatus] = useState<string>(props.status)
 
     useEffect (()=>{
         setStatus(props.status)
     }, [props.status])
-
-    const activateEditMode = () => {
-        setEditMode(true)
-    }
-    const deactivateEditMode = () => {
-        setEditMode(false)
+    useEffect(()=>{
         props.updateStatus(status)
-    }
-    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setStatus(e.currentTarget.value)
-    }
+    }, [status])
 
-        return <>
-            {!editMode &&
-                <div>
-                    <b>Status: </b> <span onDoubleClick={activateEditMode}><b>{props.status|| '----'}</b></span>
-                </div>
-            }
-            {editMode &&
-                <div>
-                    <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} type="text" value={status}/>
-                </div>
-            }
-        </>
+    return <>
+        <Paragraph editable={{ onChange: setStatus }}>{status}</Paragraph>
+    </>
 
 }
