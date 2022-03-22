@@ -20,7 +20,6 @@ export const ProfileStatusWidthHooks  = (props: ProfileStatusProps) => {
     }, [status])
 
     return <>
-        <Paragraph editable={{ onChange: setStatus }}>{status}</Paragraph>
+        <Paragraph strong editable={{ onChange: setStatus }} style={{fontSize: 20}}>{status}</Paragraph>
     </>
-
 }
