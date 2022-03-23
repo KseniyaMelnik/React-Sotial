@@ -24,7 +24,7 @@ const User = (props: UserPropsType) => {
                     </div>
                     <div>
                         {user.followed
-                            ? <Button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                            ? <Button type="primary" disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
                                 props.unfollow(user.id)
                             }}>UNFOLLOW</Button>
                             : <Button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
