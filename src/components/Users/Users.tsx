@@ -2,6 +2,8 @@ import React from "react";
 import {UserType} from "../../Redux/users-reducer";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
+import { Formik } from 'formik';
+
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -17,6 +19,7 @@ type UsersPropsType = {
 
 const Users = (props: UsersPropsType) => {
     return <div>
+        <UsersSearchForm />
         <Paginator onPageChanged={props.onPageChanged}
                    totalCount={props.totalUsersCount}
         />
@@ -33,5 +36,39 @@ const Users = (props: UsersPropsType) => {
     </div>
 
 }
-
+const usersSearchFormValidate = (values:any) => {
+    const errors = {};
+    return errors;
+}
+type UsersSearchFormObjectType = {
+    term: string
+}
+const UsersSearchForm = ()=> {
+    const submit = (values: UsersSearchFormObjectType, { setSubmitting }:{setSubmitting: (isSubmitting: boolean) => void}) => {
+        setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            //setSubmitting(false);
+        }, 400);
+    }
+    return <div>
+        <Formik
+            initialValues={{ term: '' }}
+            validate={usersSearchFormValidate}
+            onSubmit={submit}
+        >
+            {({isSubmitting,
+                  /* and other goodies */}) => (
+                <form >
+                    <input
+                        type="text"
+                        name="term"
+                    />
+                    <button type="submit" disabled={isSubmitting}>
+                        Find
+                    </button>
+                </form>
+            )}
+        </Formik>
+    </div>
+}
 export default Users
