@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
+    FilterType,
     follow, requestUsers,
     setCurrentPage,
     toggleISFollowingProgress,
@@ -42,6 +43,10 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType, any> {
     onPageChanged = (pageNumber: number) => {
         this.props.requestUsers(pageNumber, this.props.pageSize, '');
     }
+    onFilterChanged = (filter: FilterType) => {
+        const {pageSize, currentPage} = this.props
+        this.props.requestUsers(currentPage, pageSize , filter.term);
+    }
 
     render() {
         return <>
@@ -50,6 +55,7 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType, any> {
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
                    onPageChanged={this.onPageChanged}
+                   onFilterChanged={this.onFilterChanged}
                    users={this.props.users}
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}

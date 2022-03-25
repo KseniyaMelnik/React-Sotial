@@ -26,6 +26,7 @@ let initialState = {
         term: ''
     }
 };
+export type FilterType = typeof initialState.filter
 
 const usersReducer = (state = initialState, action: AppActionsType): UsersReducerType => {
 
