@@ -17,7 +17,7 @@ import {
     getTotalUsersCount,
     getCurrentPage,
     getIsFetching,
-    getFollowingInProgress, getUsers
+    getFollowingInProgress, getUsers, getUsersFilter
 } from "../../Redux/users-selectors";
 
 
@@ -26,6 +26,7 @@ type UsersAPIComponentPropsType = {
     follow: (userID: number) => void,
     unfollow: (userID: number) => void,
     pageSize: number,
+    filter: FilterType
     totalUsersCount: number,
     currentPage: number,
     setCurrentPage: (p: number) => void,
@@ -41,11 +42,12 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType, any> {
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.requestUsers(pageNumber, this.props.pageSize, '');
+        const {pageSize, filter} = this.props
+        this.props.requestUsers(pageNumber, pageSize, filter.term);
     }
     onFilterChanged = (filter: FilterType) => {
         const {pageSize, currentPage} = this.props
-        this.props.requestUsers(currentPage, pageSize , filter.term);
+        this.props.requestUsers(1, pageSize , filter.term);
     }
 
     render() {
@@ -74,6 +76,7 @@ const mapStateToProps = (state: AppStateType) => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
+        filter: getUsersFilter(state)
     }
 }
 

@@ -13,6 +13,7 @@ type PropsType = {
 export const UsersSearchForm: React.FC<PropsType> = (props ) => {
     const submit = (values: FilterType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
      props.onFilterChanged(values);
+     setSubmitting(false)
     }
     return <div>
         <Formik
