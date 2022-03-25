@@ -83,8 +83,8 @@ export const requestUsers = (page: number, pageSize: number, term: string):AppTh
     return async (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-
-        let data = await usersAPI.getUsers(page, pageSize)
+        dispatch(setFilter(term))
+        let data = await usersAPI.getUsers(page, pageSize, term)
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
