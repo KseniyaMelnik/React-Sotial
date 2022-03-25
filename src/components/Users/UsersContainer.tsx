@@ -31,16 +31,16 @@ type UsersAPIComponentPropsType = {
     isFetching: boolean,
     toggleISFollowingProgress: (isFetching: boolean, userId: number) => void,
     followingInProgress: number[]
-    requestUsers: (currentPage: number, pageSize: number) => void
+    requestUsers: (currentPage: number, pageSize: number, term: string) => void
 }
 
 class UsersContainer extends React.Component<UsersAPIComponentPropsType, any> {
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize, '');
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.requestUsers(pageNumber, this.props.pageSize);
+        this.props.requestUsers(pageNumber, this.props.pageSize, '');
     }
 
     render() {

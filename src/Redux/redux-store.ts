@@ -10,7 +10,7 @@ import dialogsReducer, {sendMessageCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
     followSuccess,
-    setCurrentPage,
+    setCurrentPage, setFilter,
     setTotalUsersCount,
     setUsers, toggleIsFetching, toggleISFollowingProgress,
     unfollowSuccess
@@ -40,6 +40,7 @@ export type AppActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setFilter>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
@@ -52,6 +53,7 @@ export type AppActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof getCaptchaUrlSuccess>
     | ReturnType<typeof messagesReceived>
     | ReturnType<typeof statusChanged>
+
 
 export type AppThunkType <ReturnType = void> = ThunkAction<void, AppStateType, unknown, AppActionsType>
 

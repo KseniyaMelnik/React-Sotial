@@ -21,7 +21,10 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [] as number[]
+    followingInProgress: [] as number[],
+    filter: {
+        term: ''
+    }
 };
 
 const usersReducer = (state = initialState, action: AppActionsType): UsersReducerType => {
@@ -42,6 +45,9 @@ const usersReducer = (state = initialState, action: AppActionsType): UsersReduce
         }
         case 'SAMURAI-NETWORK/USERS/SET_CURRENT_PAGE': {
             return { ...state,  currentPage: action.currentPage }
+        }
+        case 'SAMURAI-NETWORK/USERS/SET_FILTER': {
+            return {...state, filter: action.payload}
         }
         case 'SAMURAI-NETWORK/USERS/SET_TOTAL_USERS_COUNT': {
             return { ...state,  totalUsersCount: action.totalUsersCount }
@@ -67,14 +73,17 @@ export const unfollowSuccess = (userID: number) =>
     ({type: 'SAMURAI-NETWORK/USERS/UNFOLLOW', userID: userID} as const)
 export const setUsers = (users: Array<UserType>) => ({type: 'SAMURAI-NETWORK/USERS/SET_USERS', users: users} as const)
 export const setCurrentPage = (currentPage: number) => ({type: 'SAMURAI-NETWORK/USERS/SET_CURRENT_PAGE', currentPage: currentPage} as const)
+export const setFilter = (term: string) => ({type: 'SAMURAI-NETWORK/USERS/SET_FILTER', payload:{term}} as const)
+
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: 'SAMURAI-NETWORK/USERS/SET_TOTAL_USERS_COUNT', totalUsersCount: totalUsersCount} as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'SAMURAI-NETWORK/USERS/TOGGLE_IS_FETCHING', isFetching} as const)
 export const toggleISFollowingProgress = (isFetching: boolean, userId: number) => ({type: 'SAMURAI-NETWORK/USERS/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const)
 
-export const requestUsers = (page: number, pageSize: number):AppThunkType => {
+export const requestUsers = (page: number, pageSize: number, term: string):AppThunkType => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
+
         let data = await usersAPI.getUsers(page, pageSize)
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
