@@ -1,6 +1,7 @@
 import {Field, Form, Formik} from "formik";
 import React from "react";
 import {FilterType} from "../../Redux/users-reducer";
+import s from './Users.module.css'
 
 const usersSearchFormValidate = (values: any) => {
     const errors = {};
@@ -15,7 +16,7 @@ export const UsersSearchForm: React.FC<PropsType> = (props ) => {
      props.onFilterChanged(values);
      setSubmitting(false)
     }
-    return <div>
+    return <div className={s.search}>
         <Formik
             initialValues={{term: ''}}
             validate={usersSearchFormValidate}
