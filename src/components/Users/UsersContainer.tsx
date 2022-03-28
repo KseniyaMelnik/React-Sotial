@@ -33,21 +33,21 @@ type UsersAPIComponentPropsType = {
     isFetching: boolean,
     toggleISFollowingProgress: (isFetching: boolean, userId: number) => void,
     followingInProgress: number[]
-    requestUsers: (currentPage: number, pageSize: number, term: string) => void
+    requestUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
 }
 
 class UsersContainer extends React.Component<UsersAPIComponentPropsType, any> {
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize, '');
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize, this.props.filter);
     }
 
     onPageChanged = (pageNumber: number) => {
         const {pageSize, filter} = this.props
-        this.props.requestUsers(pageNumber, pageSize, filter.term);
+        this.props.requestUsers(pageNumber, pageSize, filter);
     }
     onFilterChanged = (filter: FilterType) => {
         const {pageSize, currentPage} = this.props
-        this.props.requestUsers(1, pageSize , filter.term);
+        this.props.requestUsers(1, pageSize , filter);
     }
 
     render() {
