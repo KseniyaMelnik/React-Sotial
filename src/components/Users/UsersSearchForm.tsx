@@ -11,7 +11,7 @@ type PropsType = {
    onFilterChanged: (filter: FilterType) => void
 }
 
-export const UsersSearchForm: React.FC<PropsType> = (props ) => {
+export const UsersSearchForm: React.FC<PropsType> = React.memo((props ) => {
     const submit = (values: FilterType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
      props.onFilterChanged(values);
      setSubmitting(false)
@@ -35,4 +35,4 @@ export const UsersSearchForm: React.FC<PropsType> = (props ) => {
             )}
         </Formik>
     </div>
-}
+})
