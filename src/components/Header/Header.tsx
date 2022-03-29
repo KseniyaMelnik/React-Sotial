@@ -1,21 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import {Avatar, Button, Col, Layout, Menu, Row} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {logout} from "../../Redux/auth-reducer";
+import {getUserProfile} from "../../Redux/profile-reducer";
 
 
 const Header = () => {
     const {Header} = Layout;
     const isAuth = useSelector<AppStateType, boolean>(state=> state.auth.isAuth)
     const login =useSelector<AppStateType, string| null> (state=> state.auth.login)
+    const userId=useSelector<AppStateType, string| null> (state=> state.auth.userId)
+    const avatar = useSelector<AppStateType, string| undefined>(state=> state.profilePage.profile?.photos.small)
 
     const dispatch = useDispatch()
     const logoutCallback = ()=> {
         dispatch(logout())
     }
+    useEffect(()=>{
+        if (userId) {
+            dispatch(getUserProfile(userId))
+        }
+    }, [userId])
+
+    const avatarAddress = avatar !== undefined? avatar : ''
 
     return <Header className="header">
         <Row>
@@ -26,7 +36,7 @@ const Header = () => {
             </Col>
                     { isAuth
                         ? <>
-                            <Col span={1}> <Avatar alt={login || ""} style={{ backgroundColor: '#87d068'}} icon={<UserOutlined />} /></Col>
+                            <Col span={1}> <Avatar src={avatarAddress} alt={login || ""} style={{ backgroundColor: '#87d068'}} icon={<UserOutlined />} /></Col>
                             <Col span={5}> <Button onClick={logoutCallback}>Log out</Button> </Col>
                         </>
                         : <Col span={6}>
