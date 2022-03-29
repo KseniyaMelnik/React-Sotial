@@ -6,3 +6,9 @@
 .search {
     margin-bottom: 20px;
 }
+
+.form {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}

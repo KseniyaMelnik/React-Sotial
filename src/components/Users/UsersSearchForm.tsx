@@ -2,6 +2,7 @@ import {Field, Form, Formik} from "formik";
 import React from "react";
 import {FilterType} from "../../Redux/users-reducer";
 import s from './Users.module.css'
+import {Button} from "antd";
 
 const usersSearchFormValidate = (values: any) => {
     const errors = {};
@@ -31,16 +32,16 @@ export const UsersSearchForm: React.FC<PropsType> = React.memo((props ) => {
             onSubmit={submit}
         >
             {({isSubmitting}) => (
-                <Form>
+                <Form className={s.form}>
                     <Field type="text" name="term"/>
                     <Field name="friend" as="select" >
                         <option value="null">All</option>
                         <option value="true">Only followed</option>
                         <option value="false">Only unfollowed</option>
                     </Field>
-                    <button type="submit" disabled={isSubmitting}>
+                    <Button htmlType="submit" disabled={isSubmitting}>
                         Find
-                    </button>
+                    </Button>
                 </Form>
             )}
         </Formik>
