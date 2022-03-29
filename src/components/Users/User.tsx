@@ -12,7 +12,7 @@ type UserPropsType = {
     follow: (userID: number) => void,
 }
 
-const User = (props: UserPropsType) => {
+const User = React.memo((props: UserPropsType) => {
     let user = props.user
     return  <div>
                 <span>
@@ -40,6 +40,6 @@ const User = (props: UserPropsType) => {
                 </span>
             </div>
 
-}
+})
 
 export default User
