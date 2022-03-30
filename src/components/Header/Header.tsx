@@ -36,7 +36,11 @@ const Header = () => {
             </Col>
                     { isAuth
                         ? <>
-                            <Col span={1}> <Avatar src={avatarAddress} alt={login || ""} style={{ backgroundColor: '#87d068'}} icon={<UserOutlined />} /></Col>
+                            <Col span={1}> <Avatar src={avatarAddress}
+                                                   alt={login || ""}
+                                                   style={{ backgroundColor: '#e7e8ec', border: '2px solid #e7e8ec'}}
+                                                   size={"large"}
+                                                   icon={<UserOutlined />} /></Col>
                             <Col span={5}> <Button onClick={logoutCallback}>Log out</Button> </Col>
                         </>
                         : <Col span={6}>
