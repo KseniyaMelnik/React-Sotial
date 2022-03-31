@@ -15,7 +15,7 @@ import usersReducer, {
     setUsers, toggleIsFetching, toggleISFollowingProgress,
     unfollowSuccess
 } from "./users-reducer";
-import authReducer, {getCaptchaUrlSuccess, setAuthUserData} from "./auth-reducer";
+import authReducer, {getCaptchaUrlSuccess, setAuthUserData, setMyProfile} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk"
 import {reducer as formReducer} from "redux-form"
 import appReducer, {initializedSuccess} from "./app-reducer";
@@ -53,6 +53,7 @@ export type AppActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof getCaptchaUrlSuccess>
     | ReturnType<typeof messagesReceived>
     | ReturnType<typeof statusChanged>
+    | ReturnType<typeof setMyProfile>
 
 
 export type AppThunkType <ReturnType = void> = ThunkAction<void, AppStateType, unknown, AppActionsType>
