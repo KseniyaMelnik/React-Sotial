@@ -4,8 +4,6 @@ import {stopSubmit} from "redux-form";
 import {AppActionsType, AppThunkType} from "./redux-store";
 import {ProfileType} from "../types/types";
 import {ProfilePropsType} from "../components/Profile/ProfileContainer";
-import {setUserProfile} from "./profile-reducer";
-
 
 export type AuthReducerType = typeof initialState;
 
@@ -35,7 +33,7 @@ const authReducer = (state = initialState, action: AppActionsType):AuthReducerTy
 
 export const setAuthUserData = (userId: string|null, email: string|null, login: string|null, isAuth: boolean) => ({type: 'SAMURAI-NETWORK/AUTH/SET_USER_DATE', payload: {userId: userId, email, login, isAuth} } as const)
 export const getCaptchaUrlSuccess = (captchaUrl: string) => ({type: 'SAMURAI-NETWORK/AUTH/GET-CAPTCHA-URL-SUCCESS', payload: {captchaUrl}} as const)
-export const setMyProfile = (profile: ProfilePropsType) => ({type: 'SAMURAI-NETWORK/AUTH/SET_MY_PROFILE', payload: {profile} } as const)
+export const setMyProfile = (myProfile: ProfilePropsType) => ({type: 'SAMURAI-NETWORK/AUTH/SET_MY_PROFILE', payload: {myProfile} } as const)
 
 export const getAuthUserData = (): AppThunkType => async (dispatch) => {
     let response = await authAPI.me()
@@ -45,9 +43,9 @@ export const getAuthUserData = (): AppThunkType => async (dispatch) => {
     }
 }
 
-export const getUserProfile = (userID: string) => async (dispatch: Dispatch) => {
+export const getMyProfile = (userID: string): AppThunkType => async (dispatch: Dispatch) => {
     let response = await profileAPI.getProfile(userID)
-    dispatch(setUserProfile(response.data))
+    dispatch(setMyProfile(response.data))
 }
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string|null = null): AppThunkType => async (dispatch: Dispatch) => {

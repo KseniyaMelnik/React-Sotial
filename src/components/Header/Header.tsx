@@ -4,8 +4,7 @@ import {Avatar, Button, Col, Layout, Menu, Row} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {logout} from "../../Redux/auth-reducer";
-import {getUserProfile} from "../../Redux/profile-reducer";
+import {getMyProfile, logout} from "../../Redux/auth-reducer";
 
 
 const Header = () => {
@@ -13,7 +12,6 @@ const Header = () => {
     const isAuth = useSelector<AppStateType, boolean>(state=> state.auth.isAuth)
     const login =useSelector<AppStateType, string| null> (state=> state.auth.login)
     const userId=useSelector<AppStateType, string| null> (state=> state.auth.userId)
-    const avatar = useSelector<AppStateType, string| undefined>(state=> state.profilePage.profile?.photos.small)
 
     const dispatch = useDispatch()
     const logoutCallback = ()=> {
@@ -21,10 +19,11 @@ const Header = () => {
     }
     useEffect(()=>{
         if (userId) {
-            dispatch(getUserProfile(userId))
+            dispatch(getMyProfile(userId))
         }
     }, [userId])
 
+    const avatar = useSelector<AppStateType, string| undefined>(state=> state.auth.myProfile?.photos.small)
     const avatarAddress = avatar !== undefined? avatar : ''
 
     return <Header className="header">
