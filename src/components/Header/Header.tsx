@@ -46,8 +46,6 @@ const Header = () => {
                         : <Col span={6}>
                             <Button><NavLink to={'/login'}>Login </NavLink></Button>
                         </Col> }
-
-
         </Row>
     </Header>
 }

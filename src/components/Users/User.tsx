@@ -3,7 +3,7 @@ import {UserType} from "../../Redux/users-reducer";
 import s from "./Users.module.css"
 import userPhoto from "../../Assets/Images/avatar.png"
 import {NavLink} from "react-router-dom";
-import {Button} from "antd";
+import {Button, Image} from "antd";
 
 type UserPropsType = {
     user: UserType,
@@ -18,7 +18,7 @@ const User = React.memo((props: UserPropsType) => {
                 <span>
                     <div>
                         <NavLink to={'/profile/' + user.id}>
-                        <img src={user.photos.small !== null ? user.photos.small : userPhoto} alt={user.name}
+                        <Image src={user.photos.small !== null ? user.photos.small : userPhoto} alt={user.name}
                              className={s.userPhoto}/>
                         </NavLink>
                     </div>
