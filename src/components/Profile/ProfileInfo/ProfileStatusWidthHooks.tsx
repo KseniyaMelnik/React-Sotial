@@ -12,9 +12,9 @@ export const ProfileStatusWidthHooks  = React.memo((props: ProfileStatusProps) =
 
     const [status, setStatus] = useState<string>(props.status)
 
-    useEffect (()=>{
+/*    useEffect (()=>{
         setStatus(props.status)
-    }, [props.status])
+    }, [props.status])*/
     useEffect(()=>{
         props.updateStatus(status)
     }, [status])
