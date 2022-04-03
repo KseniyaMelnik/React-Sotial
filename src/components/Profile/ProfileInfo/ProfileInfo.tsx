@@ -7,6 +7,7 @@ import userPhoto from "../../../Assets/Images/avatar.png"
 import {ProfileDataReduxForm} from "./ProfileDataForm";
 import {Button, Collapse, Image, Input} from "antd";
 import Title from "antd/lib/typography/Title";
+import {ProfileAvatar} from "./ProfileAvatar";
 
 const { Panel } = Collapse;
 

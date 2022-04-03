@@ -8,7 +8,7 @@ type ProfileStatusProps = {
     updateStatus: (status: string)=> void
 }
 
-export const ProfileStatusWidthHooks  = (props: ProfileStatusProps) => {
+export const ProfileStatusWidthHooks  = React.memo((props: ProfileStatusProps) => {
 
     const [status, setStatus] = useState<string>(props.status)
 
@@ -22,4 +22,4 @@ export const ProfileStatusWidthHooks  = (props: ProfileStatusProps) => {
     return <>
         <Paragraph strong editable={{ onChange: setStatus }} style={{fontSize: 20}}>{status}</Paragraph>
     </>
-}
+})
