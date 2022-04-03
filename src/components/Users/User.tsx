@@ -18,7 +18,7 @@ const User = React.memo((props: UserPropsType) => {
                 <span>
                     <div>
                         <NavLink to={'/profile/' + user.id}>
-                        <Image src={user.photos.small !== null ? user.photos.small : userPhoto} alt={user.name}
+                        <img src={user.photos.small !== null ? user.photos.small : userPhoto} alt={user.name}
                              className={s.userPhoto}/>
                         </NavLink>
                     </div>
