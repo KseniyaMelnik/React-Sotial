@@ -17,6 +17,6 @@ export const ProfileStatusWidthHooks  = React.memo((props: ProfileStatusProps) =
     }, [status])
 
     return <>
-        <Paragraph strong editable={{ onChange: setStatus }} style={{fontSize: 20}}>{status}</Paragraph>
+        <Paragraph strong editable={{ onChange: setStatus }} style={{fontSize: 20, width: 250}}>{status}</Paragraph>
     </>
 })
