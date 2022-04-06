@@ -27,6 +27,11 @@ const chatReducer = (state = initialState, action: AppActionsType):ChatReducerTy
                     ...state,
                     status: action.payload
                 }
+        case 'SAMURAI-NETWORK/CHAT/MESSAGES-DELETED':
+            return { ...state,
+            messages: []
+            }
+
         default:
             return state;
     }
@@ -34,7 +39,7 @@ const chatReducer = (state = initialState, action: AppActionsType):ChatReducerTy
 
 export const messagesReceived = (messages: ChatMessageApiType[]) => ({type: 'SAMURAI-NETWORK/CHAT/MESSAGES-RECEIVED', payload: messages}  as const)
 export const statusChanged = (status: StatusType) => ({type: 'SAMURAI-NETWORK/CHAT/STATUS-CHANGED', payload: status}  as const)
-
+export const messagesDeleted = () => ({type: 'SAMURAI-NETWORK/CHAT/MESSAGES-DELETED'}  as const)
 
 let _newMessageHandler: ((messages: ChatMessageApiType[])=> void) | null = null
 const newMessageHandlerCreator = (dispatch: Dispatch) => {

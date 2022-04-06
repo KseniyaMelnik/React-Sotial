@@ -4,7 +4,7 @@ import { Alert, Input } from 'antd';
 
 import {useDispatch, useSelector} from "react-redux";
 import {
-    ChatMessageType,
+    ChatMessageType, messagesDeleted,
     sendMessage,
     startMessagesListening,
     StatusType,
@@ -33,6 +33,7 @@ const Chat: React.FC = () => {
         dispatch(startMessagesListening());
         return () => {
             dispatch(stopMessagesListening());
+            dispatch(messagesDeleted());
         }
     }, [])
 
