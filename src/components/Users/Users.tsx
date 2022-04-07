@@ -18,7 +18,7 @@ type UsersPropsType = {
     followingInProgress: number[]
 }
 
-const Users = (props: UsersPropsType) => {
+const Users = React.memo((props: UsersPropsType) => {
     return <div>
         <UsersSearchForm onFilterChanged = {props.onFilterChanged}/>
         <Paginator onPageChanged={props.onPageChanged}
@@ -36,5 +36,5 @@ const Users = (props: UsersPropsType) => {
         </div>
     </div>
 
-}
+})
 export default Users
