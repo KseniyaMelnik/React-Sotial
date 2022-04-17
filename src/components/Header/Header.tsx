@@ -41,9 +41,9 @@ const Header = () => {
                                                                   size={"large"}
                                                                   icon={<UserOutlined />} /></NavLink>
                             </Col>
-                            <Col span={5}> <Button onClick={logoutCallback}>Log out</Button> </Col>
+                            <Col span={5}> <Button style={{marginLeft: 15}} onClick={logoutCallback}>Log out</Button> </Col>
                         </>
-                        : <Col span={6}>
+                        : <Col span={5}>
                             <Button><NavLink to={'/login'}>Login </NavLink></Button>
                         </Col> }
         </Row>
